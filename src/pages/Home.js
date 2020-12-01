@@ -1,3 +1,16 @@
+import { createSignal } from 'solid-js'
+
 export default () => {
-  return <h1>Home</h1>
+  const [count, setCount] = createSignal(0)
+
+  const increment = () => {
+    setCount(count() + 1)
+  }
+
+  return (
+    <>
+      <h2>Counter: {count()}</h2>
+      <button onClick={increment}>Click me!</button>
+    </>
+  )
 }

@@ -8,6 +8,7 @@
   "private": true,
   "scripts": {
     "build": "rollup -c",
+    "watch": "rollup -c -w",
     "start": "node index.js"
   },
   "dependencies": {

@@ -14,7 +14,11 @@ server.use(express.static(path.join(__dirname, 'dist', 'public')))
 
 server.get('*', async (req, res) => {
   try {
-    const entry = require('./dist/server.js')
+    const path = require.resolve('./dist/server.js')
+
+    delete require.cache[path]
+
+    const entry = require(path)
 
     const { string, script } = await entry(req)
 
