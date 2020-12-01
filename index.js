@@ -18,7 +18,7 @@ server.get('*', async (req, res) => {
 
     delete require.cache[path]
 
-    const entry = require(path)
+    const { entry } = require(path)
 
     const { string, script } = await entry(req)
 

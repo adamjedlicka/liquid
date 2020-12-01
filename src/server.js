@@ -2,10 +2,12 @@ import { awaitSuspense } from 'solid-js'
 import { renderToString, generateHydrationScript } from 'solid-js/web'
 import App from './App.js'
 
-export default async (req) => {
+export const entry = async (req) => {
+  let error = null
+
   const ctx = {
     url: req.url,
-    error: null,
+    onError: (err) => (error = err),
   }
 
   const string = await renderToString(awaitSuspense(() => <App ctx={ctx} />))
@@ -14,7 +16,7 @@ export default async (req) => {
     resolved: true,
   })
 
-  if (ctx.error) throw ctx.error
+  if (error) throw error
 
   return {
     string,

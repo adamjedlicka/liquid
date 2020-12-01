@@ -1,4 +1,8 @@
 import { hydrate } from 'solid-js/web'
 import App from './App.js'
 
-hydrate(() => <App />, document.getElementById('app'))
+const ctx = {
+  onError: (err) => console.error(err),
+}
+
+hydrate(() => <App ctx={ctx} />, document.getElementById('app'))

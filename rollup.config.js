@@ -7,10 +7,8 @@ const client = {
     dir: 'dist/public',
     format: 'esm',
     sourcemap: true,
-    manualChunks: {
-      solid: ['solid-js', 'solid-js/web'],
-    },
   },
+  preserveEntrySignatures: false,
   plugins: [
     nodeResolve(),
     babel({
@@ -25,7 +23,6 @@ const server = {
   output: {
     dir: 'dist',
     format: 'cjs',
-    exports: 'default',
     sourcemap: true,
   },
   external: (path) => {
