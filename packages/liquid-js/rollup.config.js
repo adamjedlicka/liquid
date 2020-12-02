@@ -2,9 +2,9 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const { babel } = require('@rollup/plugin-babel')
 
 const client = {
-  input: 'src/client.js',
+  input: 'dist/client.js',
   output: {
-    dir: 'dist/public',
+    dir: 'dist/client',
     format: 'esm',
     sourcemap: true,
   },
@@ -19,9 +19,9 @@ const client = {
 }
 
 const server = {
-  input: 'src/server.js',
+  input: 'dist/server.js',
   output: {
-    dir: 'dist',
+    dir: 'dist/server',
     format: 'cjs',
     sourcemap: true,
   },

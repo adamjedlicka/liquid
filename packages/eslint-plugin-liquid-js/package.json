@@ -1,0 +1,7 @@
+{
+  "name": "eslint-plugin-liquid-js",
+  "version": "0.1.0",
+  "description": "Liquid ESLint plugin",
+  "private": true,
+  "main": "lib/index.js"
+}

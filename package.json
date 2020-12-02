@@ -1,26 +1,21 @@
 {
-  "name": "liquid",
+  "name": "monorepo",
   "version": "0.1.0",
-  "description": "SSR for Solid",
-  "main": "index.js",
+  "description": "Monorepo for Liquid",
   "author": "Adam Jedlička",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w",
-    "start": "node index.js"
+    "dev": "liquid dev",
+    "lint": "eslint --ext .js --ignore-path .gitignore ."
   },
-  "dependencies": {
-    "@babel/core": "^7.12.9",
-    "@rollup/plugin-babel": "^5.2.2",
-    "@rollup/plugin-node-resolve": "^11.0.0",
-    "babel-preset-solid": "^0.22.7",
-    "express": "^4.17.1",
-    "node-fetch": "^2.6.1",
-    "rollup": "^2.34.0",
-    "solid-js": "^0.22.8",
-    "source-map-support": "^0.5.19",
-    "youch": "^2.1.1"
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.2.1"
   }
 }
