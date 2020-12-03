@@ -1,0 +1,18 @@
+import { lazy } from 'solid-js'
+import { Routes, Route } from 'liquid-js'
+
+<%_ for (const page of pages) { _%>
+const <%- page.name -%> = lazy(() => import('<%- page.component -%>'))
+<%_ } _%>
+
+export default () => {
+  return (
+    <Routes>
+      <%_ for (const page of pages) { _%>
+      <Route path="<%- page.path -%>">
+        <<%- page.name -%> />
+      </Route>
+      <%_ } _%>
+    </Routes>
+  )
+}

@@ -7,6 +7,7 @@ const rollup = require('../rollup.config')
 module.exports = class Dev extends Liquid {
   async run() {
     await this._cleanDistDirectory()
+    await this._executeConcepts()
     await this._copyTemplates()
 
     const watcher = watch(rollup)

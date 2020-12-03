@@ -4,9 +4,9 @@ module.exports.rules = {
 
 module.exports.configs = {
   recommended: {
-    plugins: ['liquid-js'],
+    plugins: ['liquid'],
     rules: {
-      'liquid-js/jsx-uses-vars': ['error'],
+      'liquid/jsx-uses-vars': ['error'],
     },
   },
 }

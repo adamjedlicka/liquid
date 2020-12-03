@@ -1,0 +1,23 @@
+{
+  "name": "liquid-cli",
+  "version": "0.1.0",
+  "description": "SSR for Solid",
+  "main": "index.js",
+  "author": "Adam Jedlička",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.12.9",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "babel-preset-solid": "^0.22.7",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.20",
+    "node-fetch": "^2.6.1",
+    "rollup": "^2.34.0",
+    "source-map-support": "^0.5.19",
+    "yargs": "^16.1.1",
+    "youch": "^2.1.1"
+  }
+}
