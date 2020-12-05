@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "liquid-js": "0.1.0",
-    "solid-js": "0.22.3"
+    "liquid-js": "^0.1",
+    "solid-js": "^0.22"
   }
 }

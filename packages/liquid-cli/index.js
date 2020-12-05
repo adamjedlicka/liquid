@@ -30,6 +30,40 @@ yargs
       }
     },
   })
+  .command({
+    command: 'build',
+    desc: 'Builds production bundle',
+    handler: async () => {
+      try {
+        process.env.NODE_ENV = 'production'
+
+        const Build = require('./src/cli/Build')
+
+        const build = new Build({})
+
+        await build.run()
+      } catch (e) {
+        console.error(e)
+      }
+    },
+  })
+  .command({
+    command: 'serve',
+    desc: 'Serves production bundle',
+    handler: async () => {
+      try {
+        process.env.NODE_ENV = 'production'
+
+        const Serve = require('./src/cli/Serve')
+
+        const serve = new Serve({})
+
+        await serve.run()
+      } catch (e) {
+        console.error(e)
+      }
+    },
+  })
   .demandCommand()
   .strict()
   .help()

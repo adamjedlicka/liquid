@@ -2,7 +2,7 @@ const express = require('express')
 const { watch } = require('rollup')
 const Youch = require('youch')
 const Liquid = require('../core/Liquid')
-const rollup = require('../rollup.config')
+const configs = require('../rollup.config')
 
 module.exports = class Dev extends Liquid {
   async run() {
@@ -10,12 +10,12 @@ module.exports = class Dev extends Liquid {
     await this._executeConcepts()
     await this._copyTemplates()
 
-    const watcher = watch(rollup)
+    const watcher = watch(configs)
 
     watcher.on('event', (event) => {
       switch (event.code) {
         case 'BUNDLE_END':
-          console.log(`built ${event.input} in ${event.duration}ms`)
+          console.log(`Built ${event.input} in ${event.duration}ms`)
           break
         case 'ERROR':
           console.log()

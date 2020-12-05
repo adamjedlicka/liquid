@@ -1,12 +1,15 @@
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const { babel } = require('@rollup/plugin-babel')
+const { terser } = require('rollup-plugin-terser')
+
+const production = process.env.NODE_ENV === 'production'
 
 const client = {
   input: 'dist/client.js',
   output: {
     dir: 'dist/client',
     format: 'esm',
-    sourcemap: true,
+    sourcemap: !production,
   },
   preserveEntrySignatures: false,
   plugins: [
@@ -15,6 +18,7 @@ const client = {
       babelHelpers: 'bundled',
       presets: [['solid', { generate: 'dom', hydratable: true }]],
     }),
+    production && terser(),
   ],
 }
 
@@ -23,7 +27,7 @@ const server = {
   output: {
     dir: 'dist/server',
     format: 'cjs',
-    sourcemap: true,
+    sourcemap: !production,
   },
   external: (path) => {
     try {

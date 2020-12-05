@@ -7,6 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "liquid dev",
+    "build": "liquid build",
+    "serve": "liquid serve",
     "lint": "eslint --ext .js --ignore-path .gitignore .",
     "test": "jest"
   },
