@@ -1,3 +1,10 @@
+import { useApp } from 'liquid-js'
+import DefaultLayout from '../layouts/DefaultLayout'
+
 export default () => {
-  return <h1>Hello, World!</h1>
+  const { setLayout } = useApp()
+
+  setLayout(DefaultLayout)
+
+  return <h1>Home</h1>
 }

@@ -1,13 +1,26 @@
-import { onError } from 'solid-js'
-import { Router } from 'liquid-js'
+import { createSignal, onError } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+import { Router, AppContext } from 'liquid-js'
 import Pages from './Pages'
 
 export default (props) => {
   onError(props.ctx.onError)
 
+  const [layout, _setLayout] = createSignal((props) => props.children)
+
+  const setLayout = (_layout) => {
+    if (layout() === _layout) return
+
+    _setLayout(_layout)
+  }
+
   return (
-    <Router url={props.ctx.url}>
-      <Pages />
-    </Router>
+    <AppContext.Provider value={{ layout, setLayout }}>
+      <Router url={props.ctx.url}>
+        <Dynamic component={layout()}>
+          <Pages />
+        </Dynamic>
+      </Router>
+    </AppContext.Provider>
   )
 }

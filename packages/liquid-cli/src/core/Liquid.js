@@ -1,5 +1,6 @@
 const ejs = require('ejs')
 const path = require('path')
+const express = require('express')
 const Pages = require('../concepts/Pages')
 const FS = require('../support/FS')
 const Package = require('./Package')
@@ -77,6 +78,10 @@ module.exports = class Liquid {
         extensions: this._serverExtensions,
       },
     })
+  }
+
+  _applyMiddlewares(server) {
+    server.use('/', express.static(path.resolve(this._getDistDirectoryPath(), 'client')))
   }
 
   async _handleRequest(req, res, next, { entry }) {

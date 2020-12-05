@@ -27,6 +27,8 @@ module.exports = class Dev extends Liquid {
 
     const server = express()
 
+    this._applyMiddlewares(server)
+
     server.get('*', async (req, res, next) => {
       try {
         const { entry } = await this._getServerEntry()

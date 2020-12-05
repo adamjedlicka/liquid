@@ -4,5 +4,9 @@
   "description": "Demo APP for Liquid",
   "author": "Adam Jedlička",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "liquid-js": "0.1.0",
+    "solid-js": "0.22.3"
+  }
 }

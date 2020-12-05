@@ -32,12 +32,12 @@ export const Link = (props) => {
 
   const navigate = (e) => {
     if (e) e.preventDefault()
-    window.history.pushState('', '', props.path)
-    setLocation(props.path)
+    window.history.pushState('', '', props.to)
+    setLocation(props.to)
   }
 
   return (
-    <a href={props.path} onClick={navigate}>
+    <a href={props.to} onClick={navigate}>
       {props.children}
     </a>
   )

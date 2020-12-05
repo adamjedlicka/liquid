@@ -1,1 +1,2 @@
-export * from './components/Router'
+export * from './core/App'
+export * from './core/Router'
