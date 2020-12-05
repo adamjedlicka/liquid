@@ -22,7 +22,7 @@ yargs
       try {
         const Dev = require('./src/cli/Dev')
 
-        const dev = new Dev()
+        const dev = new Dev({})
 
         await dev.run()
       } catch (e) {

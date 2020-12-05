@@ -9,7 +9,7 @@ export default () => {
   return (
     <Routes>
       <%_ for (const page of pages) { _%>
-      <Route path="<%- page.path -%>">
+      <Route path={<%- page.path -%>}>
         <<%- page.name -%> />
       </Route>
       <%_ } _%>

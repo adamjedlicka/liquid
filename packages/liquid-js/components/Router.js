@@ -24,7 +24,7 @@ export const Routes = (props) => {
 export const Route = (props) => {
   const { location } = useContext(RouterContext)
 
-  return <Match when={location() === props.path}>{props.children}</Match>
+  return <Match when={props.path.test(location())}>{props.children}</Match>
 }
 
 export const Link = (props) => {

@@ -28,11 +28,14 @@ module.exports = class Pages extends Concept {
       const component = pkg.pathJoin('pages', file)
 
       this._pages.push({
+        ident,
         name: this._getName(ident),
         path: this._getPath(ident),
         component,
       })
     }
+
+    this._pages.sort((a, b) => sortRoutes(a, b))
   }
 
   afterAll() {
@@ -54,9 +57,19 @@ module.exports = class Pages extends Concept {
   }
 
   _getPath(ident) {
-    if (ident === 'index') return '/'
-    if (ident === '_404') return '/:_(.*)'
+    if (ident === 'index') return /^\/$/
+    if (ident === '_404') return /^\/.*$/
 
-    return '/' + ident
+    return new RegExp(`^/${ident}/?$`)
   }
+}
+
+const sortRoutes = (a, b) => {
+  if (a.name === 'Index') return -1
+  if (b.name === 'Index') return 1
+
+  if (a.name === '_404') return 1
+  if (b.name === '_404') return -1
+
+  return a.ident.localeCompare(b.ident)
 }

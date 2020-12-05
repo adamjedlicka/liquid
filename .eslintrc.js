@@ -3,8 +3,8 @@ const production = process.env.NODE_ENV === 'production'
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
     node: true,
+    'jest/globals': true,
   },
   parserOptions: {
     ecmaVersion: 12,
@@ -13,8 +13,8 @@ module.exports = {
       jsx: true,
     },
   },
-  extends: ['eslint:recommended', 'plugin:liquid-js/recommended', 'plugin:prettier/recommended'],
-  plugins: ['prettier'],
+  extends: ['eslint:recommended', 'plugin:liquid/recommended', 'plugin:prettier/recommended'],
+  plugins: ['prettier', 'jest'],
   rules: {
     'prettier/prettier': [production ? 'error' : 'warn'],
   },

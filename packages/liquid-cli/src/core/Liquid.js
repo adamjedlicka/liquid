@@ -5,8 +5,8 @@ const FS = require('../support/FS')
 const Package = require('./Package')
 
 module.exports = class Liquid {
-  constructor() {
-    this._fs = new FS()
+  constructor({ fs }) {
+    this._fs = fs || new FS()
 
     this._clientExtensions = []
     this._serverExtensions = []
