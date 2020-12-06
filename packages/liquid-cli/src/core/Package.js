@@ -23,8 +23,8 @@ module.exports = class Package {
   }
 
   async getFiles(dir) {
-    const content = await this._liquid._fs.readdir(path.join(this._path, dir))
+    const files = await this._liquid._fs.readdir(path.join(this._path, dir))
 
-    return content
+    return files.map((file) => file.replace(/\\/g, '/'))
   }
 }
