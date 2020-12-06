@@ -1,10 +1,9 @@
 import { useApp } from 'liquid-js'
-import DefaultLayout from '../layouts/DefaultLayout'
+import WideLayout from '../layouts/WideLayout'
 
 export default () => {
   const { setLayout } = useApp()
-
-  setLayout(DefaultLayout)
+  setLayout(WideLayout)
 
   return <h1>About</h1>
 }

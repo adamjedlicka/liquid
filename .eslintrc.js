@@ -4,10 +4,10 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    es2021: true,
     'jest/globals': true,
   },
   parserOptions: {
-    ecmaVersion: 12,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,

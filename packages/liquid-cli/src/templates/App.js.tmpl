@@ -4,7 +4,7 @@ import { Router, AppContext } from 'liquid-js'
 import Pages from './Pages'
 
 export default (props) => {
-  onError(props.ctx.onError)
+  onError(props.onError)
 
   const [layout, _setLayout] = createSignal((props) => props.children)
 
@@ -16,7 +16,7 @@ export default (props) => {
 
   return (
     <AppContext.Provider value={{ layout, setLayout }}>
-      <Router url={props.ctx.url}>
+      <Router url={props.url}>
         <Dynamic component={layout()}>
           <Pages />
         </Dynamic>
