@@ -1,2 +1,2 @@
-export * from './core/App'
 export * from './core/Router'
+export { useLayout } from './core/Layouts'

@@ -9,8 +9,6 @@ const client = {
   output: {
     dir: 'dist/client',
     format: 'esm',
-    entryFileNames: '[name].js',
-    chunkFileNames: '[name].js',
     sourcemap: !production,
   },
   preserveEntrySignatures: false,
@@ -29,8 +27,6 @@ const server = {
   output: {
     dir: 'dist/server',
     format: 'cjs',
-    entryFileNames: '[name].js',
-    chunkFileNames: '[name].js',
     sourcemap: !production,
   },
   external: (path) => {

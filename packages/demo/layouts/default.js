@@ -1,6 +1,8 @@
 import { Link } from 'liquid-js'
 
 export default (props) => {
+  console.log('layuts/default')
+
   return (
     <>
       <Link to="/">Home</Link>

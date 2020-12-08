@@ -1,4 +1,4 @@
-import { createContext, createSignal, Match, Suspense, useContext } from 'solid-js'
+import { createContext, createSignal, Match, useContext } from 'solid-js'
 import { isServer } from 'solid-js/web'
 
 const RouterContext = createContext()
@@ -11,14 +11,6 @@ export const Router = (props) => {
   }
 
   return <RouterContext.Provider value={{ location, setLocation }}>{props.children}</RouterContext.Provider>
-}
-
-export const Routes = (props) => {
-  return (
-    <Suspense>
-      <Switch>{props.children}</Switch>
-    </Suspense>
-  )
 }
 
 export const Route = (props) => {

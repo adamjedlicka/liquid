@@ -5,7 +5,7 @@ module.exports = {
     browser: true,
     node: true,
     es2021: true,
-    'jest/globals': true,
+    jest: true,
   },
   parserOptions: {
     sourceType: 'module',
@@ -14,7 +14,7 @@ module.exports = {
     },
   },
   extends: ['eslint:recommended', 'plugin:liquid/recommended', 'plugin:prettier/recommended'],
-  plugins: ['prettier', 'jest'],
+  plugins: ['prettier'],
   rules: {
     'prettier/prettier': [production ? 'error' : 'warn'],
   },

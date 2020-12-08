@@ -1,6 +1,7 @@
 const ejs = require('ejs')
 const path = require('path')
 const express = require('express')
+const Layouts = require('../concepts/Layouts')
 const Pages = require('../concepts/Pages')
 const FS = require('../support/FS')
 const Package = require('./Package')
@@ -48,12 +49,15 @@ module.exports = class Liquid {
   async _executeConcepts() {
     const packages = this._getPackages()
 
+    const layouts = new Layouts(this)
     const pages = new Pages(this)
 
     for (const pkg of packages) {
+      await layouts.run(pkg)
       await pages.run(pkg)
     }
 
+    await layouts.afterAll()
     await pages.afterAll()
   }
 

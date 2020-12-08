@@ -1,15 +1,16 @@
-import { useApp } from 'liquid-js'
-import { createResource } from 'solid-js'
-import WideLayout from '../layouts/WideLayout'
+import { useLayout } from 'liquid-js'
 
 export default () => {
-  const { setLayout } = useApp()
+  console.log('pages/about')
 
-  setLayout(WideLayout)
+  const { setLayout } = useLayout()
 
-  const [data, loadData] = createResource(undefined, { name: 'myData' })
+  setLayout('wide')
 
-  loadData(() => new Promise((resolve) => setTimeout(() => (console.log('data'), resolve('Hello, World!')), 1000)))
-
-  return <h1>{data()}</h1>
+  return (
+    <>
+      <h1>About</h1>
+      <p class="text">This is some about page.</p>
+    </>
+  )
 }

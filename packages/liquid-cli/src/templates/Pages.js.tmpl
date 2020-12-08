@@ -1,18 +1,22 @@
-import { lazy } from 'solid-js'
-import { Routes, Route } from 'liquid-js'
+import { Switch } from 'solid-js'
+import { Route } from 'liquid-js'
 
 <%_ for (const page of pages) { _%>
-const <%- page.name -%> = lazy(() => import('<%- page.component -%>'))
+// const <%- page.name -%> = lazy(() => import('<%- page.component -%>'))
+<%_ } _%>
+
+<%_ for (const page of pages) { _%>
+import <%- page.name -%> from '<%- page.component -%>'
 <%_ } _%>
 
 export default () => {
   return (
-    <Routes>
+    <Switch>
       <%_ for (const page of pages) { _%>
       <Route path={<%- page.path -%>}>
         <<%- page.name -%> />
       </Route>
       <%_ } _%>
-    </Routes>
+    </Switch>
   )
 }

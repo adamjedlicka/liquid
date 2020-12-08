@@ -1,27 +1,18 @@
-import { createSignal, onError } from 'solid-js'
-import { AppContext, Router, Layout } from 'liquid-js'
+import { onError, Suspense } from 'solid-js'
+import { Router } from 'liquid-js'
+import Layouts from './Layouts'
 import Pages from './Pages'
-
-const DefaultLayout = (props) => props.children
 
 export default (props) => {
   onError(props.onError)
 
-  const [layout, _setLayout] = createSignal(DefaultLayout)
-
-  const setLayout = (_layout) => {
-    if (layout() === _layout) return
-
-    _setLayout(_layout)
-  }
-
   return (
-    <AppContext.Provider value={{ layout, setLayout }}>
+    <Suspense>
       <Router url={props.url}>
-        <Layout>
-          <Pages/>
-        </Layout>
+        <Layouts>
+          <Pages />
+        </Layouts>
       </Router>
-    </AppContext.Provider>
+    </Suspense>
   )
 }
