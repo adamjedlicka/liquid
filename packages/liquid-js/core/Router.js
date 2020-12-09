@@ -29,7 +29,7 @@ export const Link = (props) => {
   }
 
   return (
-    <a href={props.to} onClick={navigate}>
+    <a href={props.to} class={props.class} onClick={navigate}>
       {props.children}
     </a>
   )
