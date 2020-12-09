@@ -1,4 +1,7 @@
+const path = require('path')
 const yargs = require('yargs')
+
+const config = require(path.resolve(process.cwd(), 'liquid.config.js'))
 
 yargs
   .usage('Usage: $0 <command> [options]')
@@ -22,7 +25,7 @@ yargs
       try {
         const Dev = require('./src/cli/Dev')
 
-        const dev = new Dev({})
+        const dev = new Dev({ config })
 
         await dev.run()
       } catch (e) {
@@ -39,7 +42,7 @@ yargs
 
         const Build = require('./src/cli/Build')
 
-        const build = new Build({})
+        const build = new Build({ config })
 
         await build.run()
       } catch (e) {
@@ -56,7 +59,7 @@ yargs
 
         const Serve = require('./src/cli/Serve')
 
-        const serve = new Serve({})
+        const serve = new Serve({ config })
 
         await serve.run()
       } catch (e) {

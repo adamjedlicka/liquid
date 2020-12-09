@@ -1,6 +1,7 @@
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const { babel } = require('@rollup/plugin-babel')
 const { terser } = require('rollup-plugin-terser')
+const postcss = require('rollup-plugin-postcss')
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -18,6 +19,10 @@ const client = {
       babelHelpers: 'bundled',
       presets: [['solid', { generate: 'dom', hydratable: true }]],
     }),
+    postcss({
+      extract: true,
+      minimize: production,
+    }),
     production && terser(),
   ],
 }
@@ -30,6 +35,8 @@ const server = {
     sourcemap: !production,
   },
   external: (path) => {
+    if (/\.css$/.test(path)) return false
+
     try {
       return require.resolve(path).includes('node_modules')
     } catch {
@@ -41,6 +48,10 @@ const server = {
     babel({
       babelHelpers: 'bundled',
       presets: [['solid', { generate: 'ssr', hydratable: true, async: true }]],
+    }),
+    postcss({
+      extract: false,
+      inject: false,
     }),
   ],
 }

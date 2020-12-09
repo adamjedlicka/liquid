@@ -10,21 +10,6 @@ module.exports = class Dev extends Liquid {
     await this._executeConcepts()
     await this._copyTemplates()
 
-    const watcher = watch(configs)
-
-    watcher.on('event', (event) => {
-      switch (event.code) {
-        case 'BUNDLE_END':
-          console.log(`Built ${event.input} in ${event.duration}ms`)
-          break
-        case 'ERROR':
-          console.log()
-          console.error(event.error.message)
-          console.log()
-          break
-      }
-    })
-
     const server = express()
 
     this._applyMiddlewares(server)
@@ -49,6 +34,27 @@ module.exports = class Dev extends Liquid {
       console.log()
       console.log('Server listening at http://%s:%d', this._getServerHost(), this._getServerPort())
       console.log()
+
+      const watcher = watch(configs)
+
+      watcher.on('event', (event) => {
+        switch (event.code) {
+          case 'START':
+            break
+          case 'BUNDLE_START':
+            process.stdout.write(`Building "${event.input}"`)
+            break
+          case 'BUNDLE_END':
+            process.stdout.write(`\tdone - ${event.duration}ms\n`)
+            break
+          case 'END':
+            process.stdout.write('\n')
+            break
+          case 'ERROR':
+            process.stderr.write(`\n${event.error.message}\n`)
+            break
+        }
+      })
     })
   }
 }

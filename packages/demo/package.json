@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "liquid-js": "^0.1",
-    "solid-js": "^0.23.2"
+    "liquid-js": "*",
+    "solid-js": "*",
+    "tailwindcss": "^1.0"
   }
 }

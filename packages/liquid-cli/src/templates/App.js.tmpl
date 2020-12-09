@@ -3,6 +3,10 @@ import { Router } from 'liquid-js'
 import Layouts from './Layouts'
 import Pages from './Pages'
 
+<%_ for (const style of styles) { _%>
+import '<%- style -%>'
+<%_ } _%>
+
 export default (props) => {
   onError(props.onError)
 

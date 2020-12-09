@@ -8,8 +8,9 @@ const FS = require('../support/FS')
 const Package = require('./Package')
 
 module.exports = class Liquid {
-  constructor({ fs }) {
-    this._fs = fs || new FS()
+  constructor({ config, fs }) {
+    this._config = config ?? {}
+    this._fs = fs ?? new FS()
 
     this._serverMiddleware = []
   }
@@ -54,22 +55,19 @@ module.exports = class Liquid {
     await this.addFile({
       src: path.resolve(__dirname, '..', 'templates', 'App.js.tmpl'),
       dst: 'App.js',
+      data: {
+        styles: this._getStyles(),
+      },
     })
 
     await this.addFile({
       src: path.resolve(__dirname, '..', 'templates', 'client.js.tmpl'),
       dst: 'client.js',
-      data: {
-        extensions: this._clientExtensions,
-      },
     })
 
     await this.addFile({
       src: path.resolve(__dirname, '..', 'templates', 'server.js.tmpl'),
       dst: 'server.js',
-      data: {
-        extensions: this._serverExtensions,
-      },
     })
   }
 
@@ -91,6 +89,7 @@ module.exports = class Liquid {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Document</title>
+      <link rel="stylesheet" href="/client.css">
       <script>${script}</script>
   </head>
   <body>
@@ -106,7 +105,7 @@ module.exports = class Liquid {
   _getPackages() {
     const packages = []
 
-    for (const module of ['liquid-demo'] || []) {
+    for (const module of this._config.packages ?? []) {
       const resolved = require.resolve(`${module}/package.json`)
       const _path = path.dirname(resolved)
       const _meta = require(resolved)
@@ -123,6 +122,20 @@ module.exports = class Liquid {
     delete require.cache[resolved]
 
     return require(resolved)
+  }
+
+  _getStyles() {
+    const styles = []
+
+    for (const style of this._config.styles ?? []) {
+      try {
+        styles.push(require.resolve(style))
+      } catch {
+        styles.push(path.resolve(this._getRootDirectoryPath(), style))
+      }
+    }
+
+    return styles
   }
 
   _getServerHost() {
