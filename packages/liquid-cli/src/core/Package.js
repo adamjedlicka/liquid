@@ -17,7 +17,7 @@ module.exports = class Package {
   }
 
   pathJoin(...parts) {
-    return path.join(this._path, ...parts)
+    return path.join(this._path, ...parts).replace(/\\/g, '/')
   }
 
   getName() {
