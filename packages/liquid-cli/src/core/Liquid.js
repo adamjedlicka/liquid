@@ -3,6 +3,7 @@ const path = require('path')
 const express = require('express')
 const Layouts = require('../concepts/Layouts')
 const Pages = require('../concepts/Pages')
+const Public = require('../concepts/Public')
 const FS = require('../support/FS')
 const Package = require('./Package')
 
@@ -10,26 +11,7 @@ module.exports = class Liquid {
   constructor({ fs }) {
     this._fs = fs || new FS()
 
-    this._clientExtensions = []
-    this._serverExtensions = []
-  }
-
-  async addClientExtension({ name, src, dst, data }) {
-    await this.addFile({ src, dst, data })
-
-    this._clientExtensions.push({
-      name,
-      src: dst,
-    })
-  }
-
-  async addServerExtension({ name, src, dst, data }) {
-    await this.addFile({ src, dst, data })
-
-    this._serverExtensions.push({
-      name,
-      src: dst,
-    })
+    this._serverMiddleware = []
   }
 
   async addFile({ src, dst, data }) {
@@ -38,6 +20,10 @@ module.exports = class Liquid {
     const rendered = ejs.render(template, data)
 
     await this._fs.writeFile(path.resolve(this._getDistDirectoryPath(), dst), rendered)
+  }
+
+  async addServerMiddleware(serverMiddleware) {
+    this._serverMiddleware.push(serverMiddleware)
   }
 
   async _cleanDistDirectory() {
@@ -51,14 +37,17 @@ module.exports = class Liquid {
 
     const layouts = new Layouts(this)
     const pages = new Pages(this)
+    const _public = new Public(this)
 
     for (const pkg of packages) {
       await layouts.run(pkg)
       await pages.run(pkg)
+      await _public.run(pkg)
     }
 
     await layouts.afterAll()
     await pages.afterAll()
+    await _public.afterAll()
   }
 
   async _copyTemplates() {
@@ -86,6 +75,10 @@ module.exports = class Liquid {
 
   _applyMiddlewares(server) {
     server.use('/', express.static(path.resolve(this._getDistDirectoryPath(), 'client')))
+
+    for (const serverMiddleware of this._serverMiddleware) {
+      server.use(serverMiddleware)
+    }
   }
 
   async _handleRequest(req, res, next, { entry }) {

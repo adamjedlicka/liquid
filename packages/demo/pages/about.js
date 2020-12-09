@@ -1,8 +1,6 @@
 import { useLayout } from 'liquid-js'
 
 export default () => {
-  console.log('pages/about')
-
   const { setLayout } = useLayout()
 
   setLayout('wide')

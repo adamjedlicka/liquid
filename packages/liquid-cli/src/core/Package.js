@@ -14,8 +14,8 @@ module.exports = class Package {
     this._meta = meta
   }
 
-  pathJoin(dir, file) {
-    return path.join(this._path, dir, file)
+  pathJoin(...parts) {
+    return path.join(this._path, ...parts)
   }
 
   getName() {

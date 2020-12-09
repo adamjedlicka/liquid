@@ -1,14 +1,14 @@
-import { createContext, createResource, useContext } from 'solid-js'
+import { createContext, createResource, untrack, useContext } from 'solid-js'
 
 const LayoutContext = createContext()
 
 export const Provider = (props) => {
-  const [layout, loadLayout] = createResource(undefined, { name: 'liquid-layout' })
+  const [layout, loadLayout] = createResource('default', { name: 'liquid-layout' })
 
   const setLayout = (_layout) => {
-    if (layout() === _layout) return
+    if (untrack(() => layout()) === _layout) return
 
-    loadLayout(() => _layout)
+    loadLayout(() => new Promise((resolve) => resolve(_layout)))
   }
 
   return <LayoutContext.Provider value={{ layout, setLayout }}>{props.children}</LayoutContext.Provider>

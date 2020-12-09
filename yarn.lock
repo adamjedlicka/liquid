@@ -597,9 +597,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*":
-  version "14.14.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.10.tgz#5958a82e41863cfc71f2307b3748e3491ba03785"
-  integrity sha512-J32dgx2hw8vXrSbu4ZlVhn1Nm3GbeCFNw2FWL8S5QKucHGY0cyNwjdQdO+KMBZ4wpmC7KhLCiNsdk1RFRIYUQQ==
+  version "14.14.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.11.tgz#fc25a4248a5e8d0837019b1d170146d07334abe0"
+  integrity sha512-BJ97wAUuU3NUiUCp44xzUFquQEvnk1wu7q4CMEUYKJWjdkr0YWYDsm4RFtAvxYsNjLsKcrFt6RvK8r+mnzMbEQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -3868,10 +3868,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-solid-js@^0.22, solid-js@^0.22.8:
-  version "0.22.10"
-  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-0.22.10.tgz#fc1dd4b0d981382b875f6cb3a5c02eb9480a184f"
-  integrity sha512-OaN+JKafUBRizBAiU4HIuuc0AMPSiLZU+Qq48uSU+m34vr9ws9jB/ZX0IAxqPFBW9/T+EJfOKfqt60JJFLZTzg==
+solid-js@^0.23.2:
+  version "0.23.2"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-0.23.2.tgz#b9a1041e7cab076424cf14c395c46ef792a7a0f9"
+  integrity sha512-TU0ugaPFAexonDwz5fyUkVziDEfLmrXIp4oa3oUfjw8AHJhM0rgQNxJHDDwB0FIaYdqnLpP4Smkx3NjOM1OKvA==
 
 source-map-resolve@^0.5.0:
   version "0.5.3"
@@ -4311,9 +4311,9 @@ uuid@^3.3.2:
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
 uuid@^8.3.0:
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.1.tgz#2ba2e6ca000da60fce5a196954ab241131e05a31"
-  integrity sha512-FOmRr+FmWEIG8uhZv6C2bTgEVXsHk08kE7mPlrBbEe+c3r9pjceVPgupIfNIhc4yx55H69OXANrUaSuu9eInKg==
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 v8-compile-cache@^2.0.3:
   version "2.2.0"
