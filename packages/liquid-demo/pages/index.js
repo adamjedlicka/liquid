@@ -1,3 +1,5 @@
+import LazyImage from '../components/LazyImage'
+
 export default () => {
   return (
     <section class="text-gray-700 body-font">
@@ -23,7 +25,7 @@ export default () => {
           </div>
         </div>
         <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-          <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600" />
+          <LazyImage class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600" />
         </div>
       </div>
     </section>

@@ -1,3 +1,5 @@
+import LazyImage from '../components/LazyImage'
+
 export default () => {
   return (
     <section class="text-gray-700 body-font">
@@ -5,7 +7,7 @@ export default () => {
         <div class="flex flex-wrap -m-4">
           <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
             <a class="block relative h-48 rounded overflow-hidden">
-              <img
+              <LazyImage
                 alt="ecommerce"
                 class="object-cover object-center w-full h-full block"
                 src="https://dummyimage.com/420x260"
@@ -19,7 +21,7 @@ export default () => {
           </div>
           <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
             <a class="block relative h-48 rounded overflow-hidden">
-              <img
+              <LazyImage
                 alt="ecommerce"
                 class="object-cover object-center w-full h-full block"
                 src="https://dummyimage.com/421x261"
@@ -33,7 +35,7 @@ export default () => {
           </div>
           <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
             <a class="block relative h-48 rounded overflow-hidden">
-              <img
+              <LazyImage
                 alt="ecommerce"
                 class="object-cover object-center w-full h-full block"
                 src="https://dummyimage.com/422x262"
@@ -47,7 +49,7 @@ export default () => {
           </div>
           <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
             <a class="block relative h-48 rounded overflow-hidden">
-              <img
+              <LazyImage
                 alt="ecommerce"
                 class="object-cover object-center w-full h-full block"
                 src="https://dummyimage.com/423x263"
@@ -61,7 +63,7 @@ export default () => {
           </div>
           <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
             <a class="block relative h-48 rounded overflow-hidden">
-              <img
+              <LazyImage
                 alt="ecommerce"
                 class="object-cover object-center w-full h-full block"
                 src="https://dummyimage.com/424x264"
@@ -75,7 +77,7 @@ export default () => {
           </div>
           <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
             <a class="block relative h-48 rounded overflow-hidden">
-              <img
+              <LazyImage
                 alt="ecommerce"
                 class="object-cover object-center w-full h-full block"
                 src="https://dummyimage.com/425x265"
@@ -89,7 +91,7 @@ export default () => {
           </div>
           <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
             <a class="block relative h-48 rounded overflow-hidden">
-              <img
+              <LazyImage
                 alt="ecommerce"
                 class="object-cover object-center w-full h-full block"
                 src="https://dummyimage.com/427x267"
@@ -103,7 +105,7 @@ export default () => {
           </div>
           <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
             <a class="block relative h-48 rounded overflow-hidden">
-              <img
+              <LazyImage
                 alt="ecommerce"
                 class="object-cover object-center w-full h-full block"
                 src="https://dummyimage.com/428x268"

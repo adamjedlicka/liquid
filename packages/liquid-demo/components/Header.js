@@ -17,7 +17,7 @@ export default () => {
           >
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
-          <span class="ml-3 text-xl">tailblocks</span>
+          <span class="ml-3 text-xl">LiquidJS</span>
         </a>
         <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
           <Link to="/" class="mr-5 cursor-pointer hover:text-gray-900">
@@ -25,7 +25,7 @@ export default () => {
           </Link>
 
           <Link to="/category" class="mr-5 cursor-pointer hover:text-gray-900">
-            Cateogry
+            Category
           </Link>
 
           <Link to="/product" class="mr-5 cursor-pointer hover:text-gray-900">
