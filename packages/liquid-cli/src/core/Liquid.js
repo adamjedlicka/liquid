@@ -129,9 +129,9 @@ module.exports = class Liquid {
 
     for (const style of this._config.styles ?? []) {
       try {
-        styles.push(require.resolve(style))
+        styles.push(require.resolve(style).replace(/\\/g, '/'))
       } catch {
-        styles.push(path.resolve(this._getRootDirectoryPath(), style))
+        styles.push(path.resolve(this._getRootDirectoryPath(), style).replace(/\\/g, '/'))
       }
     }
 
