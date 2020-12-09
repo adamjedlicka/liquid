@@ -4,6 +4,8 @@ const Liquid = require('../core/Liquid')
 
 module.exports = class Serve extends Liquid {
   async run() {
+    await this._executeConcepts()
+
     const server = express()
 
     server.use(compression())
