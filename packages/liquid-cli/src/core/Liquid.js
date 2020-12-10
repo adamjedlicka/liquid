@@ -4,6 +4,7 @@ const express = require('express')
 const Layouts = require('../concepts/Layouts')
 const Pages = require('../concepts/Pages')
 const Public = require('../concepts/Public')
+const Routes = require('../concepts/Routes')
 const FS = require('../support/FS')
 const Package = require('./Package')
 
@@ -39,16 +40,19 @@ module.exports = class Liquid {
     const layouts = new Layouts(this)
     const pages = new Pages(this)
     const _public = new Public(this)
+    const routes = new Routes(this)
 
     for (const pkg of packages) {
       await layouts.run(pkg)
       await pages.run(pkg)
       await _public.run(pkg)
+      await routes.run(pkg)
     }
 
     await layouts.afterAll()
     await pages.afterAll()
     await _public.afterAll()
+    await routes.afterAll()
   }
 
   async _copyTemplates() {
@@ -75,7 +79,7 @@ module.exports = class Liquid {
     server.use('/', express.static(path.resolve(this._getDistDirectoryPath(), 'client')))
 
     for (const serverMiddleware of this._serverMiddleware) {
-      server.use(serverMiddleware)
+      serverMiddleware(server)
     }
   }
 
@@ -136,6 +140,18 @@ module.exports = class Liquid {
     }
 
     return styles
+  }
+
+  _getRollupConfig() {
+    const configs = require('../rollup.config.js')
+
+    if (!this._config.rollup) return configs
+
+    for (const config of configs) {
+      this._config.rollup({ config })
+    }
+
+    return configs
   }
 
   _getServerHost() {

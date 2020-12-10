@@ -1,6 +1,5 @@
 const { rollup } = require('rollup')
 const Liquid = require('../core/Liquid')
-const configs = require('../rollup.config')
 
 module.exports = class Build extends Liquid {
   async run() {
@@ -8,7 +7,7 @@ module.exports = class Build extends Liquid {
     await this._executeConcepts()
     await this._copyTemplates()
 
-    for (const config of configs) {
+    for (const config of this._getRollupConfig()) {
       process.stdout.write(`\nBuilding "${config.input}"`)
 
       const bundle = await rollup(config)

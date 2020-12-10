@@ -22,6 +22,6 @@ module.exports = class Public extends Concept {
 
     if (files.length === 0) return
 
-    this._liquid.addServerMiddleware(express.static(pkg.pathJoin('public')))
+    this._liquid.addServerMiddleware((server) => server.use(express.static(pkg.pathJoin('public'))))
   }
 }

@@ -2,7 +2,6 @@ const express = require('express')
 const { watch } = require('rollup')
 const Youch = require('youch')
 const Liquid = require('../core/Liquid')
-const configs = require('../rollup.config')
 
 module.exports = class Dev extends Liquid {
   async run() {
@@ -35,7 +34,7 @@ module.exports = class Dev extends Liquid {
       console.log('Server listening at http://%s:%d', this._getServerHost(), this._getServerPort())
       console.log()
 
-      const watcher = watch(configs)
+      const watcher = watch(this._getRollupConfig())
 
       watcher.on('event', (event) => {
         switch (event.code) {

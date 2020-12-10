@@ -1,0 +1,9 @@
+query ($urlKey: String!) {
+  products (filter: {url_key: {eq: $urlKey}}) {
+    items {
+      id
+      sku
+      name
+    }
+  }
+}
