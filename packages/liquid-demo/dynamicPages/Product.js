@@ -1,21 +1,13 @@
 import { useRouter } from 'liquid-js'
 import { createResource, createEffect } from 'solid-js'
-import { isServer } from 'solid-js/web'
 import LazyImage from '../components/LazyImage'
+import { useRepository } from '../repositories'
 import { getProductByUrlKey } from '../repositories/ProductRepository'
 
 export default () => {
   const { location } = useRouter()
 
-  const [product, loadProduct] = createResource({}, { name: 'productDetail' })
-
-  if (isServer) {
-    loadProduct(() => getProductByUrlKey(location().replace(/^\//, '')))
-  } else {
-    createEffect(() => {
-      loadProduct(() => getProductByUrlKey(location().replace(/^\//, '')))
-    })
-  }
+  const product = useRepository('productDetail', () => getProductByUrlKey(location().replace(/^\//, '')))
 
   return (
     <section class="text-gray-700 body-font">
@@ -24,11 +16,11 @@ export default () => {
           <LazyImage
             alt="ecommerce"
             class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-            src={product().thumbnail?.url}
+            src={product()?.thumbnail?.url}
           />
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 class="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
-            <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{product().name}</h1>
+            <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{product()?.name}</h1>
             <div class="flex mb-4">
               <span class="flex items-center">
                 <svg
@@ -127,7 +119,7 @@ export default () => {
                 </a>
               </span>
             </div>
-            <div class="leading-relaxed" innerHTML={product().description?.html} />
+            <div class="leading-relaxed" innerHTML={product()?.description?.html} />
             <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
               <div class="flex">
                 <span class="mr-3">Color</span>
