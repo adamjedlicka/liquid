@@ -1,5 +1,6 @@
 import { useRouter } from 'liquid-js'
-import { createComputed, createResource } from 'solid-js'
+import { createResource, createEffect } from 'solid-js'
+import { isServer } from 'solid-js/web'
 import LazyImage from '../components/LazyImage'
 import { getProductByUrlKey } from '../repositories/ProductRepository'
 
@@ -8,10 +9,13 @@ export default () => {
 
   const [product, loadProduct] = createResource({}, { name: 'productDetail' })
 
-  createComputed(() => {
-    const urlKey = location().replace(/^\//, '')
-    loadProduct(() => getProductByUrlKey(urlKey))
-  })
+  if (isServer) {
+    loadProduct(() => getProductByUrlKey(location().replace(/^\//, '')))
+  } else {
+    createEffect(() => {
+      loadProduct(() => getProductByUrlKey(location().replace(/^\//, '')))
+    })
+  }
 
   return (
     <section class="text-gray-700 body-font">
