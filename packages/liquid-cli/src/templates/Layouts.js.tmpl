@@ -1,4 +1,4 @@
-import { createMemo, lazy } from 'solid-js'
+import { createMemo, lazy, Suspense } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import { Provider, useLayout } from 'liquid-js/core/Layouts'
 
@@ -8,7 +8,7 @@ const layouts = {
   <%_ } _%>
 }
 
-const Layouts = (props) => {
+const Layout = (props) => {
   const { layout } = useLayout()
 
   const children = createMemo(() => props.children)
@@ -21,7 +21,9 @@ const Layouts = (props) => {
 export default (props) => {
   return (
     <Provider>
-      <Layouts>{props.children}</Layouts>
+      <Suspense>
+        <Layout>{props.children}</Layout>
+      </Suspense>
     </Provider>
   )
 }

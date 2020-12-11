@@ -1,26 +1,22 @@
 import { useRouter } from 'liquid-js'
-import { createComputed, createResource, lazy, Switch, Match } from 'solid-js'
+import { lazy, Switch, Match } from 'solid-js'
 import { resolveUrl } from '../GraphQL'
+import { useRepository } from '../repositories'
 
 const Category = lazy(() => import('../dynamicPages/Category'))
 const Product = lazy(() => import('../dynamicPages/Product'))
 
 export default () => {
   const { location } = useRouter()
-  const [urlResolver, loadUrlResolver] = createResource({}, { name: 'urlResolver' })
-
-  createComputed(() => {
-    const _location = location()
-    loadUrlResolver(() => resolveUrl(_location + '.html'))
-  })
+  const urlResolver = useRepository('urlResolver', () => resolveUrl(location()))
 
   return (
     <Switch>
       <Match when={urlResolver()?.type === 'CATEGORY'}>
-        <Category id={urlResolver()?.id} />
+        <Category id={urlResolver()?.id} url={urlResolver()?.url} />
       </Match>
       <Match when={urlResolver()?.type === 'PRODUCT'}>
-        <Product id={urlResolver()?.id} />
+        <Product id={urlResolver()?.id} url={urlResolver()?.url} />
       </Match>
     </Switch>
   )

@@ -32,6 +32,7 @@ export const Link = (props) => {
   const { setLocation } = useContext(RouterContext)
 
   const navigate = (e) => {
+    console.log('navigate')
     if (e) e.preventDefault()
     window.history.pushState('', '', props.to)
     setLocation(props.to)

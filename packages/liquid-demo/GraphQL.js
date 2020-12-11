@@ -22,7 +22,9 @@ export const query = async (query, variables = {}) => {
 }
 
 export const resolveUrl = async (url) => {
-  const { urlResolver } = await query(urlResolverQuery, { url })
+  const { urlResolver } = await query(urlResolverQuery, { url: `${url}.html` })
+
+  urlResolver.url = url
 
   return urlResolver
 }

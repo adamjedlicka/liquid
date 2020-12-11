@@ -1,13 +1,10 @@
-import { useRouter } from 'liquid-js'
-import { createResource, createEffect } from 'solid-js'
+import { Link } from 'liquid-js'
 import LazyImage from '../components/LazyImage'
 import { useRepository } from '../repositories'
 import { getProductByUrlKey } from '../repositories/ProductRepository'
 
-export default () => {
-  const { location } = useRouter()
-
-  const product = useRepository('productDetail', () => getProductByUrlKey(location().replace(/^\//, '')))
+export default (props) => {
+  const product = useRepository('productDetail', () => getProductByUrlKey(props.url))
 
   return (
     <section class="text-gray-700 body-font">
@@ -19,7 +16,11 @@ export default () => {
             src={product()?.thumbnail?.url}
           />
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h2 class="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
+            <h2 class="text-sm title-font text-gray-500 tracking-widest">
+              {product()?.categories?.map((category) => (
+                <Link to={'/' + category.url_path}>{category.name}</Link>
+              ))}
+            </h2>
             <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{product()?.name}</h1>
             <div class="flex mb-4">
               <span class="flex items-center">

@@ -1,4 +1,4 @@
-import { onError, Suspense } from 'solid-js'
+import { onError } from 'solid-js'
 import { Router } from 'liquid-js'
 import Layouts from './Layouts'
 import Pages from './Pages'
@@ -11,12 +11,10 @@ export default (props) => {
   onError(props.onError)
 
   return (
-    <Suspense>
-      <Router url={props.url}>
-        <Layouts>
-          <Pages />
-        </Layouts>
-      </Router>
-    </Suspense>
+    <Router url={props.url}>
+      <Layouts>
+        <Pages />
+      </Layouts>
+    </Router>
   )
 }

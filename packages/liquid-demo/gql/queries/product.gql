@@ -7,6 +7,13 @@ query($urlKey: String!) {
       thumbnail {
         url
       }
+      description {
+        html
+      }
+      categories {
+        name
+        url_path
+      }
     }
   }
 }
