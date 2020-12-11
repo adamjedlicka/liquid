@@ -1,0 +1,30 @@
+query($id: String!) {
+  categoryList(filters: { ids: { eq: $id } }) {
+    id
+    name
+    url_path
+  }
+  products(filter: { category_id: { eq: $id } }) {
+    total_count
+    items {
+      id
+      sku
+      name
+      url_key
+      thumbnail {
+        url
+      }
+      categories {
+        name
+        url_path
+      }
+      price_range {
+        minimum_price {
+          final_price {
+            value
+          }
+        }
+      }
+    }
+  }
+}

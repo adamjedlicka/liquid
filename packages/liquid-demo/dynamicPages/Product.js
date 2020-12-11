@@ -1,11 +1,17 @@
-import { createResource } from 'solid-js'
+import { useRouter } from 'liquid-js'
+import { createComputed, createResource } from 'solid-js'
 import LazyImage from '../components/LazyImage'
 import { getProductByUrlKey } from '../repositories/ProductRepository'
 
 export default () => {
-  const [product, loadProduct] = createResource({}, { name: 'product' })
+  const { location } = useRouter()
 
-  loadProduct(() => getProductByUrlKey('carmina-earrings'))
+  const [product, loadProduct] = createResource({}, { name: 'productDetail' })
+
+  createComputed(() => {
+    const urlKey = location().replace(/^\//, '')
+    loadProduct(() => getProductByUrlKey(urlKey))
+  })
 
   return (
     <section class="text-gray-700 body-font">

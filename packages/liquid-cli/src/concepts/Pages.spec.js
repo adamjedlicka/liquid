@@ -79,4 +79,37 @@ describe('Pages', () => {
     expect(pages._pages[1].path).toEqual(/^\/.*$/)
     expect(pages._pages[1].component).toEqual('/myPackage/pages/_404.js')
   })
+
+  it('supports fallback page', async () => {
+    const liquid = new Liquid({
+      fs: FS.mock([
+        {
+          path: '/myPackage/pages/_.js',
+          content: `
+            export default () => <h1>Fallback</h1>
+            `,
+        },
+        {
+          path: '/myPackage/pages/index.js',
+          content: `
+          export default () => <h1>Index</h1>
+            `,
+        },
+      ]),
+    })
+
+    const pages = new Pages(liquid)
+
+    const pkg = new Package(liquid, '/myPackage', { name: 'myPackage' })
+
+    await pages.run(pkg)
+
+    expect(pages._pages[0].name).toEqual('Index')
+    expect(pages._pages[0].path).toEqual(/^\/$/)
+    expect(pages._pages[0].component).toEqual('/myPackage/pages/index.js')
+
+    expect(pages._pages[1].name).toEqual('_')
+    expect(pages._pages[1].path).toEqual(/^\/.*$/)
+    expect(pages._pages[1].component).toEqual('/myPackage/pages/_.js')
+  })
 })

@@ -51,6 +51,7 @@ module.exports = class Pages extends Concept {
 
   _getName(ident) {
     if (ident === 'index') return 'Index'
+    if (ident === '_') return '_'
     if (ident === '_404') return '_404'
 
     return _.startCase(_.camelCase(ident)).replace(/ /g, '')
@@ -58,6 +59,7 @@ module.exports = class Pages extends Concept {
 
   _getPath(ident) {
     if (ident === 'index') return /^\/$/
+    if (ident === '_') return /^\/.*$/
     if (ident === '_404') return /^\/.*$/
 
     return new RegExp(`^/${ident}/?$`)
@@ -67,6 +69,9 @@ module.exports = class Pages extends Concept {
 const sortRoutes = (a, b) => {
   if (a.name === 'Index') return -1
   if (b.name === 'Index') return 1
+
+  if (a.name === '_') return 1
+  if (b.name === '_') return -1
 
   if (a.name === '_404') return 1
   if (b.name === '_404') return -1

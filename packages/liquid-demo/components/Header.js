@@ -1,6 +1,12 @@
+import { createResource, For } from 'solid-js'
+import { getCategoriesByParentId } from '../repositories/CategoryRepository'
 import Link from './Link'
 
 export default () => {
+  const [categories, loadCategories] = createResource([], { name: 'headerCategories' })
+
+  loadCategories(() => getCategoriesByParentId(2))
+
   return (
     <header class="text-gray-700 body-font">
       <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -17,28 +23,18 @@ export default () => {
           >
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
-          <span class="ml-3 text-xl">LiquidJS</span>
+          <Link to="/" class="ml-3 text-xl">
+            LiquidJS
+          </Link>
         </a>
         <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-          <Link to="/" class="mr-5 cursor-pointer hover:text-gray-900">
-            Home
-          </Link>
-
-          <Link to="/category" class="mr-5 cursor-pointer hover:text-gray-900">
-            Category
-          </Link>
-
-          <Link to="/product" class="mr-5 cursor-pointer hover:text-gray-900">
-            Product
-          </Link>
-
-          <Link to="/empty" class="mr-5 cursor-pointer hover:text-gray-900">
-            Empty
-          </Link>
-
-          <Link to="/bad-page" class="mr-5 cursor-pointer hover:text-gray-900">
-            404
-          </Link>
+          <For each={categories()}>
+            {(category) => (
+              <Link to={'/' + category.url_path} class="mr-5 cursor-pointer hover:text-gray-900">
+                {category.name}
+              </Link>
+            )}
+          </For>
         </nav>
         <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
           Button

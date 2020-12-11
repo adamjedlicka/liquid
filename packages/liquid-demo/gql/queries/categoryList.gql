@@ -1,0 +1,10 @@
+query ($ids: String!) {
+  categoryList (filters: {ids: { eq: $ids }}) {
+    id
+    children {
+      id
+      name
+      url_path
+    }
+  }
+}

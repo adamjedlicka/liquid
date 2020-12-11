@@ -3,6 +3,15 @@ import { isServer } from 'solid-js/web'
 
 const RouterContext = createContext()
 
+export const useRouter = () => {
+  const { location, setLocation } = useContext(RouterContext)
+
+  return {
+    location,
+    setLocation,
+  }
+}
+
 export const Router = (props) => {
   const [location, setLocation] = createSignal(props.url || window.location.pathname || '/')
 
