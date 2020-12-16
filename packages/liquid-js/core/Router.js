@@ -1,4 +1,4 @@
-import { createContext, createSignal, useContext, Match } from 'solid-js'
+import { createContext, createSignal, useContext } from 'solid-js'
 import { isServer } from 'solid-js/web'
 
 const RouterContext = createContext()
@@ -20,12 +20,6 @@ export const Router = (props) => {
   }
 
   return <RouterContext.Provider value={{ location, setLocation }}>{props.children}</RouterContext.Provider>
-}
-
-export const Route = (props) => {
-  const { location } = useContext(RouterContext)
-
-  return <Match when={props.path.test(location())}>{props.children}</Match>
 }
 
 export const Link = (props) => {

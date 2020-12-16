@@ -1,18 +1,20 @@
-import { lazy, Suspense, Switch } from 'solid-js'
-import { Route } from 'liquid-js'
+import { lazy, Match, Suspense, Switch } from 'solid-js'
+import { useRouter } from 'liquid-js'
 
 <%_ for (const page of pages) { _%>
 const <%- page.name -%> = lazy(() => import('<%- page.component -%>'))
 <%_ } _%>
 
 export default () => {
+  const { location } = useRouter()
+
   return (
     <Suspense>
       <Switch>
         <%_ for (const page of pages) { _%>
-        <Route path={<%- page.path -%>}>
+        <Match when={<%- page.path -%>.test(location())}>
           <<%- page.name -%> />
-        </Route>
+        </Match>
         <%_ } _%>
       </Switch>
     </Suspense>
