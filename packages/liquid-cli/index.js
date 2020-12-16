@@ -34,6 +34,12 @@ yargs
   .command({
     command: 'build',
     desc: 'Builds production bundle',
+    builder: (yargs) => {
+      yargs.option('analyze', {
+        desc: 'Analyze production bundle',
+        type: 'boolean',
+      })
+    },
     handler: async (args) => {
       try {
         process.env.NODE_ENV = 'production'

@@ -23,5 +23,9 @@
     "source-map-support": "^0.5.19",
     "yargs": "^16.1.1",
     "youch": "^2.1.1"
+  },
+  "devDependencies": {
+    "open": "^7.3.0",
+    "rollup-plugin-visualizer": "^4.2.0"
   }
 }

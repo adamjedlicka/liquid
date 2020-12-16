@@ -1,4 +1,7 @@
+const open = require('open')
+const path = require('path')
 const { rollup } = require('rollup')
+const visualizer = require('rollup-plugin-visualizer')
 const Liquid = require('../core/Liquid')
 
 module.exports = class Build extends Liquid {
@@ -9,6 +12,14 @@ module.exports = class Build extends Liquid {
 
     for (const config of this._getRollupConfig()) {
       process.stdout.write(`\nBuilding "${config.input}"`)
+
+      if (this._args.analyze && config.input.includes('client')) {
+        config.plugins.push(
+          visualizer({
+            filename: 'dist/client/stats.html',
+          })
+        )
+      }
 
       const bundle = await rollup(config)
 
@@ -21,6 +32,10 @@ module.exports = class Build extends Liquid {
         process.stdout.write(`  ${out.fileName}`)
         process.stdout.write(new Array(30 - out.fileName.length).join(' '))
         process.stdout.write(`${this._getSize(out)}\n`)
+      }
+
+      if (this._args.analyze && config.input.includes('client')) {
+        open(path.resolve(this._getDistDirectoryPath(), 'client', 'stats.html'))
       }
     }
   }
