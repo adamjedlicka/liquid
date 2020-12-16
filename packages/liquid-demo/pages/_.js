@@ -8,7 +8,7 @@ const Product = lazy(() => import('../dynamicPages/Product'))
 
 export default () => {
   const { location } = useRouter()
-  const urlResolver = useRepository('urlResolver', () => resolveUrl(location()))
+  const urlResolver = useRepository('urlResolver', () => resolveUrl(location()), [location])
 
   return (
     <Switch>

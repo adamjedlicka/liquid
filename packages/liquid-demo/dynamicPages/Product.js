@@ -4,7 +4,7 @@ import { useRepository } from '../repositories'
 import { getProductByUrlKey } from '../repositories/ProductRepository'
 
 export default (props) => {
-  const product = useRepository('productDetail', () => getProductByUrlKey(props.url))
+  const product = useRepository('productDetail', () => getProductByUrlKey(props.url), [() => props.url])
 
   return (
     <section class="text-gray-700 body-font">

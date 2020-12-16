@@ -4,7 +4,7 @@ import { getCategoryDetailById } from '../repositories/CategoryRepository'
 import Tile from '../components/product/Tile'
 
 export default (props) => {
-  const categoryDetail = useRepository('categoryDetail', () => getCategoryDetailById(props.id))
+  const categoryDetail = useRepository('categoryDetail', () => getCategoryDetailById(props.id), [() => props.id])
 
   return (
     <section class="text-gray-700 body-font">

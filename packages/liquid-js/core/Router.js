@@ -1,4 +1,4 @@
-import { createContext, createSignal, Match, useContext } from 'solid-js'
+import { createContext, createSignal, useContext, Match } from 'solid-js'
 import { isServer } from 'solid-js/web'
 
 const RouterContext = createContext()
@@ -32,7 +32,6 @@ export const Link = (props) => {
   const { setLocation } = useContext(RouterContext)
 
   const navigate = (e) => {
-    console.log('navigate')
     if (e) e.preventDefault()
     window.history.pushState('', '', props.to)
     setLocation(props.to)
