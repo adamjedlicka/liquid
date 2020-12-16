@@ -13,19 +13,17 @@ yargs
         .option('host', {
           desc: 'Server host',
           type: 'string',
-          default: 'localhost',
         })
         .option('port', {
           desc: 'Server port',
           type: 'number',
-          default: '3000',
         })
     },
-    handler: async () => {
+    handler: async (args) => {
       try {
         const Dev = require('./src/cli/Dev')
 
-        const dev = new Dev({ config })
+        const dev = new Dev({ config, args })
 
         await dev.run()
       } catch (e) {
@@ -36,13 +34,13 @@ yargs
   .command({
     command: 'build',
     desc: 'Builds production bundle',
-    handler: async () => {
+    handler: async (args) => {
       try {
         process.env.NODE_ENV = 'production'
 
         const Build = require('./src/cli/Build')
 
-        const build = new Build({ config })
+        const build = new Build({ config, args })
 
         await build.run()
       } catch (e) {
@@ -53,13 +51,24 @@ yargs
   .command({
     command: 'serve',
     desc: 'Serves production bundle',
-    handler: async () => {
+    builder: (yargs) => {
+      yargs
+        .option('host', {
+          desc: 'Server host',
+          type: 'string',
+        })
+        .option('port', {
+          desc: 'Server port',
+          type: 'number',
+        })
+    },
+    handler: async (args) => {
       try {
         process.env.NODE_ENV = 'production'
 
         const Serve = require('./src/cli/Serve')
 
-        const serve = new Serve({ config })
+        const serve = new Serve({ config, args })
 
         await serve.run()
       } catch (e) {

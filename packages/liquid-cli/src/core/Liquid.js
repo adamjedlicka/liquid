@@ -9,8 +9,9 @@ const FS = require('../support/FS')
 const Package = require('./Package')
 
 module.exports = class Liquid {
-  constructor({ config, fs }) {
+  constructor({ config, args, fs }) {
     this._config = config ?? {}
+    this._args = args ?? {}
     this._fs = fs ?? new FS()
 
     this._serverMiddleware = []
@@ -155,11 +156,11 @@ module.exports = class Liquid {
   }
 
   _getServerHost() {
-    return 'localhost'
+    return this._args.host ?? this._config.server?.host ?? 'localhost'
   }
 
   _getServerPort() {
-    return 8080
+    return this._args.port ?? this._config.server?.port ?? '8080'
   }
 
   _getRootDirectoryPath() {
