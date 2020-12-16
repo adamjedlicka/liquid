@@ -95,7 +95,7 @@ module.exports = class Liquid {
       <title>Document</title>
       <link rel="stylesheet" href="/client.css">
       <script>${script}</script>
-      <script type="module" src="/client.js" async defer></script>
+      <script type="module" src="/client.js" async></script>
   </head>
   <body>
       <div id="app">${string}</div>
