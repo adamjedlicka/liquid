@@ -1,4 +1,4 @@
-import { createEffect, createSignal, onCleanup } from 'solid-js'
+import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
 
 const observe = (el, onObserved) => {
   if (typeof IntersectionObserver === 'undefined') return
@@ -31,5 +31,11 @@ export default (props) => {
     () => setVisible(true)
   )
 
-  return <img ref={img} alt={props.alt} class={props.class} src={visible() ? props.src : placeholder} />
+  const src = createMemo(() => {
+    if (!visible()) return placeholder
+
+    return `/image?path=${props.src}&w=${props.w || 0}&h=${props.h || 0}&fit=${props.fit || 'cover'}`
+  })
+
+  return <img ref={img} alt={props.alt} class={props.class} src={src()} />
 }

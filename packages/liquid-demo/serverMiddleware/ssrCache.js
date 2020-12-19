@@ -1,6 +1,10 @@
+const enabled = process.env.NODE_ENV === 'production'
+
 const cache = {}
 
 export default (req, res, next) => {
+  if (!enabled) return next()
+
   const cached = cache[req.originalUrl]
 
   if (cached) return res.send(cached)

@@ -3,7 +3,7 @@ import LazyImage from '../components/LazyImage'
 import { useProductByUrlKey } from '../repositories/ProductRepository'
 
 export default (props) => {
-  const { categories, description, thumbnail } = useProductByUrlKey('productDetail', () => props.url)
+  const { name, categories, description, thumbnail } = useProductByUrlKey('productDetail', () => props.url)
 
   return (
     <section class="text-gray-700 body-font">
@@ -11,8 +11,11 @@ export default (props) => {
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
           <LazyImage
             alt="ecommerce"
-            class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
+            class="lg:w-1/2 w-full lg:h-auto h-64 object-contain object-center rounded"
             src={thumbnail()}
+            w="500"
+            h="600"
+            fit="contain"
           />
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 class="text-sm title-font text-gray-500 tracking-widest">
@@ -20,7 +23,7 @@ export default (props) => {
                 <Link to={'/' + category.url_path}>{category.name}</Link>
               ))}
             </h2>
-            <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{product()?.name}</h1>
+            <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{name()}</h1>
             <div class="flex mb-4">
               <span class="flex items-center">
                 <svg

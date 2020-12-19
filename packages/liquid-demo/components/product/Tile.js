@@ -7,8 +7,11 @@ export default (props) => {
       <Link to={'/' + props.product.url_key} class="block relative h-48 rounded overflow-hidden">
         <LazyImage
           alt="ecommerce"
-          class="object-cover object-center w-full h-full block"
+          class="object-contain object-center w-full h-full block"
           src={props.product.thumbnail.url}
+          w="300"
+          h="200"
+          fit="contain"
         />
       </Link>
       <div class="mt-4">

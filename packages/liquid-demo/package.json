@@ -8,6 +8,7 @@
   "dependencies": {
     "http-proxy-middleware": "^1.0.6",
     "rollup-plugin-string": "^3.0.0",
+    "sharp": "^0.26.3",
     "tailwindcss": "^1.0"
   }
 }

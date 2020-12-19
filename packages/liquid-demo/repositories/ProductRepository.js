@@ -15,6 +15,7 @@ export const useProductByUrlKey = (name, urlKeyFactory) => {
   const product = useRepository(name, () => getProductByUrlKey(urlKeyFactory()), [urlKeyFactory])
 
   return {
+    name: createMemo(() => product()?.name ?? ''),
     thumbnail: createMemo(() => product()?.thumbnail?.url ?? ''),
     categories: createMemo(() => product()?.categories ?? []),
     description: createMemo(() => product()?.description?.html ?? ''),
