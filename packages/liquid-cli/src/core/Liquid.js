@@ -18,6 +18,7 @@ module.exports = class Liquid {
       require('../concepts/Pages'),
       require('../concepts/Public'),
       require('../concepts/Routes'),
+      require('../concepts/ServerMiddleware'),
     ]
     this._concepts = []
     this._serverMiddleware = []
