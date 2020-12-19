@@ -15,6 +15,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "dependencies": {
+    "solid-js": "*",
+    "liquid-js": "*"
+  },
   "devDependencies": {
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",

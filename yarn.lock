@@ -5198,7 +5198,7 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-solid-js@0.23.4:
+solid-js@*, solid-js@0.23.4:
   version "0.23.4"
   resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-0.23.4.tgz#e59a8ad732ba0e87ac67ba6ca5a4490686c1f465"
   integrity sha512-Pzmk8SFRT2oqpgS7e0VJk8/kevZVvS+7fBhUKaMqthPNTmqIbdTPdyTtzLTtwek4P6GEKpozxfaJzqjtMFHQFA==

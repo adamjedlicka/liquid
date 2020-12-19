@@ -1,4 +1,4 @@
-import { createComputed, createResource } from 'solid-js'
+import { createComputed, createMemo, createResource, untrack } from 'solid-js'
 
 export const useRepository = (name, repository, args = []) => {
   const [resource, loadResource] = createResource(undefined, { name })
@@ -7,8 +7,8 @@ export const useRepository = (name, repository, args = []) => {
     // Register the arguments
     for (const arg of args) arg()
 
-    loadResource(repository)
+    loadResource(untrack(() => repository))
   })
 
-  return resource
+  return createMemo(resource, undefined, true)
 }

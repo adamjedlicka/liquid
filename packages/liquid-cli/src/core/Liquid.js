@@ -1,10 +1,6 @@
 const ejs = require('ejs')
 const path = require('path')
 const express = require('express')
-const Layouts = require('../concepts/Layouts')
-const Pages = require('../concepts/Pages')
-const Public = require('../concepts/Public')
-const Routes = require('../concepts/Routes')
 const FS = require('../support/FS')
 const Package = require('./Package')
 
@@ -14,6 +10,14 @@ module.exports = class Liquid {
     this._args = args ?? {}
     this._fs = fs ?? new FS()
 
+    this._coreConcepts = [
+      require('../concepts/Concepts'),
+      require('../concepts/Layouts'),
+      require('../concepts/Pages'),
+      require('../concepts/Public'),
+      require('../concepts/Routes'),
+    ]
+    this._concepts = []
     this._serverMiddleware = []
   }
 
@@ -38,22 +42,27 @@ module.exports = class Liquid {
   async _executeConcepts() {
     const packages = this._getPackages()
 
-    const layouts = new Layouts(this)
-    const pages = new Pages(this)
-    const _public = new Public(this)
-    const routes = new Routes(this)
+    // Load core concepts concepts
+    for (const Concept of this._coreConcepts) {
+      const concept = new Concept(this)
 
-    for (const pkg of packages) {
-      await layouts.run(pkg)
-      await pages.run(pkg)
-      await _public.run(pkg)
-      await routes.run(pkg)
+      for (const pkg of packages) {
+        await concept.run(pkg)
+      }
+
+      await concept.afterAll()
     }
 
-    await layouts.afterAll()
-    await pages.afterAll()
-    await _public.afterAll()
-    await routes.afterAll()
+    // Load regular concepts concepts
+    for (const Concept of this._concepts) {
+      const concept = new Concept(this)
+
+      for (const pkg of packages) {
+        await concept.run(pkg)
+      }
+
+      await concept.afterAll()
+    }
   }
 
   async _copyTemplates() {

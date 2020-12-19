@@ -1,0 +1,7 @@
+import { lazy } from 'solid-js'
+
+export const dynamicPages = {
+  <%_ for (const dynamicPage of dynamicPages) { _%>
+  <%- dynamicPage.ident -%>: lazy(() => import('<%- dynamicPage.component -%>')),
+  <%_ } _%>
+}
