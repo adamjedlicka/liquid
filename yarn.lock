@@ -5198,10 +5198,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-solid-js@*, solid-js@^0.23.2:
-  version "0.23.2"
-  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-0.23.2.tgz#b9a1041e7cab076424cf14c395c46ef792a7a0f9"
-  integrity sha512-TU0ugaPFAexonDwz5fyUkVziDEfLmrXIp4oa3oUfjw8AHJhM0rgQNxJHDDwB0FIaYdqnLpP4Smkx3NjOM1OKvA==
+solid-js@0.23.4:
+  version "0.23.4"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-0.23.4.tgz#e59a8ad732ba0e87ac67ba6ca5a4490686c1f465"
+  integrity sha512-Pzmk8SFRT2oqpgS7e0VJk8/kevZVvS+7fBhUKaMqthPNTmqIbdTPdyTtzLTtwek4P6GEKpozxfaJzqjtMFHQFA==
 
 source-map-resolve@^0.5.0:
   version "0.5.3"
