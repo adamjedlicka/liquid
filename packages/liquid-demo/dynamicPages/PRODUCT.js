@@ -1,10 +1,9 @@
 import { Link } from 'liquid-js'
 import LazyImage from '../components/LazyImage'
-import { useRepository } from '../repositories'
-import { getProductByUrlKey } from '../repositories/ProductRepository'
+import { useProductByUrlKey } from '../repositories/ProductRepository'
 
 export default (props) => {
-  const product = useRepository('productDetail', () => getProductByUrlKey(props.url), [() => props.url])
+  const { categories, description, thumbnail } = useProductByUrlKey('productDetail', () => props.url)
 
   return (
     <section class="text-gray-700 body-font">
@@ -13,11 +12,11 @@ export default (props) => {
           <LazyImage
             alt="ecommerce"
             class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-            src={product()?.thumbnail?.url}
+            src={thumbnail()}
           />
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 class="text-sm title-font text-gray-500 tracking-widest">
-              {product()?.categories?.map((category) => (
+              {categories().map((category) => (
                 <Link to={'/' + category.url_path}>{category.name}</Link>
               ))}
             </h2>
@@ -120,7 +119,7 @@ export default (props) => {
                 </a>
               </span>
             </div>
-            <div class="leading-relaxed" innerHTML={product()?.description?.html} />
+            <div class="leading-relaxed" innerHTML={description()} />
             <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
               <div class="flex">
                 <span class="mr-3">Color</span>
