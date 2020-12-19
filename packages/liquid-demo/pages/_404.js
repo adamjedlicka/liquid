@@ -4,8 +4,7 @@ import { Dynamic } from 'solid-js/web'
 import { resolveUrl } from '../GraphQL'
 import { useRepository } from '../repositories'
 
-// TODO: Improve import path
-import { dynamicPages } from '../../../dist/DynamicPages'
+import { dynamicPages } from 'build/DynamicPages'
 
 export default () => {
   const { location } = useRouter()

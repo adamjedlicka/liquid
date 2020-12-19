@@ -1,6 +1,6 @@
-const { string } = require('rollup-plugin-string')
+import { string } from 'rollup-plugin-string'
 
-module.exports = {
+export default {
   packages: ['liquid-demo'],
 
   styles: ['tailwindcss/tailwind.css', './packages/liquid-demo/styles/index.css'],

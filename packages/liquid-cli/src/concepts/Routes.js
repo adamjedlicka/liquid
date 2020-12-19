@@ -21,7 +21,7 @@ module.exports = class Routes extends Concept {
 
     for (const file of files) {
       const path = file.replace(/\.js$/, '')
-      const route = require(pkg.pathJoin('routes', file))
+      const route = await this._liquid._bundler.import(pkg.pathJoin('routes', file))
 
       this._liquid.addServerMiddleware((server) => server.use(`/${path}`, route))
     }

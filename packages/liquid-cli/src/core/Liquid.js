@@ -2,6 +2,7 @@ const ejs = require('ejs')
 const path = require('path')
 const express = require('express')
 const FS = require('../support/FS')
+const Bundler = require('../support/Bundler')
 const Package = require('./Package')
 
 module.exports = class Liquid {
@@ -9,6 +10,7 @@ module.exports = class Liquid {
     this._config = config ?? {}
     this._args = args ?? {}
     this._fs = fs ?? new FS()
+    this._bundler = new Bundler()
 
     this._coreConcepts = [
       require('../concepts/Concepts'),
@@ -177,6 +179,6 @@ module.exports = class Liquid {
   }
 
   _getDistDirectoryPath() {
-    return path.resolve(this._getRootDirectoryPath(), 'dist')
+    return path.resolve(this._getRootDirectoryPath(), 'build')
   }
 }

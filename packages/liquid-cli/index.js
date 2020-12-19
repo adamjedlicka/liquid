@@ -1,88 +1,95 @@
 const path = require('path')
 const yargs = require('yargs')
+const Bundler = require('./src/support/Bundler')
 
-const config = require(path.resolve(process.cwd(), 'liquid.config.js'))
+const main = async () => {
+  const bundler = new Bundler()
 
-yargs
-  .usage('Usage: $0 <command> [options]')
-  .command({
-    command: 'dev',
-    desc: 'Starts development server',
-    builder: (yargs) => {
-      yargs
-        .option('host', {
-          desc: 'Server host',
-          type: 'string',
+  const config = await bundler.import(path.resolve(process.cwd(), 'liquid.config.js'))
+
+  yargs
+    .usage('Usage: $0 <command> [options]')
+    .command({
+      command: 'dev',
+      desc: 'Starts development server',
+      builder: (yargs) => {
+        yargs
+          .option('host', {
+            desc: 'Server host',
+            type: 'string',
+          })
+          .option('port', {
+            desc: 'Server port',
+            type: 'number',
+          })
+      },
+      handler: async (args) => {
+        try {
+          const Dev = require('./src/cli/Dev')
+
+          const dev = new Dev({ config, args })
+
+          await dev.run()
+        } catch (e) {
+          console.error(e)
+        }
+      },
+    })
+    .command({
+      command: 'build',
+      desc: 'Builds production bundle',
+      builder: (yargs) => {
+        yargs.option('analyze', {
+          desc: 'Analyze production bundle',
+          type: 'boolean',
         })
-        .option('port', {
-          desc: 'Server port',
-          type: 'number',
-        })
-    },
-    handler: async (args) => {
-      try {
-        const Dev = require('./src/cli/Dev')
+      },
+      handler: async (args) => {
+        try {
+          process.env.NODE_ENV = 'production'
 
-        const dev = new Dev({ config, args })
+          const Build = require('./src/cli/Build')
 
-        await dev.run()
-      } catch (e) {
-        console.error(e)
-      }
-    },
-  })
-  .command({
-    command: 'build',
-    desc: 'Builds production bundle',
-    builder: (yargs) => {
-      yargs.option('analyze', {
-        desc: 'Analyze production bundle',
-        type: 'boolean',
-      })
-    },
-    handler: async (args) => {
-      try {
-        process.env.NODE_ENV = 'production'
+          const build = new Build({ config, args })
 
-        const Build = require('./src/cli/Build')
+          await build.run()
+        } catch (e) {
+          console.error(e)
+        }
+      },
+    })
+    .command({
+      command: 'serve',
+      desc: 'Serves production bundle',
+      builder: (yargs) => {
+        yargs
+          .option('host', {
+            desc: 'Server host',
+            type: 'string',
+          })
+          .option('port', {
+            desc: 'Server port',
+            type: 'number',
+          })
+      },
+      handler: async (args) => {
+        try {
+          process.env.NODE_ENV = 'production'
 
-        const build = new Build({ config, args })
+          const Serve = require('./src/cli/Serve')
 
-        await build.run()
-      } catch (e) {
-        console.error(e)
-      }
-    },
-  })
-  .command({
-    command: 'serve',
-    desc: 'Serves production bundle',
-    builder: (yargs) => {
-      yargs
-        .option('host', {
-          desc: 'Server host',
-          type: 'string',
-        })
-        .option('port', {
-          desc: 'Server port',
-          type: 'number',
-        })
-    },
-    handler: async (args) => {
-      try {
-        process.env.NODE_ENV = 'production'
+          const serve = new Serve({ config, args })
 
-        const Serve = require('./src/cli/Serve')
+          await serve.run()
+        } catch (e) {
+          console.error(e)
+        }
+      },
+    })
+    .demandCommand()
+    .strict()
+    .help()
+    .parse()
+}
 
-        const serve = new Serve({ config, args })
-
-        await serve.run()
-      } catch (e) {
-        console.error(e)
-      }
-    },
-  })
-  .demandCommand()
-  .strict()
-  .help()
-  .parse()
+main()

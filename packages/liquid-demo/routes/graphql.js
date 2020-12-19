@@ -1,6 +1,6 @@
-const { createProxyMiddleware } = require('http-proxy-middleware')
+import { createProxyMiddleware } from 'http-proxy-middleware'
 
-module.exports = createProxyMiddleware({
+export default createProxyMiddleware({
   target: 'https://venia.magento.com',
   changeOrigin: true,
 })

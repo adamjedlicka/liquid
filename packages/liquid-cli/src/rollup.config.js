@@ -1,14 +1,16 @@
+const path = require('path')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const { babel } = require('@rollup/plugin-babel')
+const alias = require('@rollup/plugin-alias')
 const { terser } = require('rollup-plugin-terser')
 const postcss = require('rollup-plugin-postcss')
 
 const production = process.env.NODE_ENV === 'production'
 
 const client = {
-  input: 'dist/client.js',
+  input: 'build/client.js',
   output: {
-    dir: 'dist/client',
+    dir: 'build/client',
     format: 'esm',
     sourcemap: !production,
   },
@@ -23,14 +25,17 @@ const client = {
       extract: true,
       minimize: production,
     }),
+    alias({
+      entries: [{ find: 'build', replacement: path.resolve(process.cwd(), 'build') }],
+    }),
     production && terser(),
   ],
 }
 
 const server = {
-  input: 'dist/server.js',
+  input: 'build/server.js',
   output: {
-    dir: 'dist/server',
+    dir: 'build/server',
     format: 'cjs',
     sourcemap: !production,
   },
@@ -52,6 +57,9 @@ const server = {
     postcss({
       extract: false,
       inject: false,
+    }),
+    alias({
+      entries: [{ find: 'build', replacement: path.resolve(process.cwd(), 'build') }],
     }),
   ],
 }

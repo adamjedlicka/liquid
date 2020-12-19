@@ -29,9 +29,12 @@ module.exports = class Build extends Liquid {
 
       process.stdout.write('Output:\n')
       for (const out of output) {
-        process.stdout.write(`  ${out.fileName}`)
-        process.stdout.write(new Array(30 - out.fileName.length).join(' '))
-        process.stdout.write(`${this._getSize(out)}\n`)
+        process.stdout.write('  ')
+        process.stdout.write(out.fileName)
+        process.stdout.write(new Array(40 - out.fileName.length).join(' '))
+        process.stdout.write(this._getSize(out))
+        if (out.isEntry) process.stdout.write(' [entry]')
+        process.stdout.write('\n')
       }
 
       if (this._args.analyze && config.input.includes('client')) {
