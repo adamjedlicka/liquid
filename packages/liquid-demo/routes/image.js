@@ -36,8 +36,8 @@ const resizeImage = async (req, res) => {
   const image = sharp(Buffer.from(data))
 
   image.resize({
-    width: parseInt(req.query.w) || 0,
-    height: parseInt(req.query.h) || 0,
+    width: parseInt(req.query.w) || undefined,
+    height: parseInt(req.query.h) || undefined,
     fit: req.query.fit || 'cover',
     background: '#FFFFFF',
   })

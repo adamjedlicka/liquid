@@ -15,6 +15,8 @@ module.exports = class Dev extends Liquid {
 
     server.get('*', async (req, res, next) => {
       try {
+        if (this._error) throw this._error
+
         const { entry } = await this._getServerEntry()
 
         await this._handleRequest(req, res, next, {
@@ -39,6 +41,7 @@ module.exports = class Dev extends Liquid {
       watcher.on('event', (event) => {
         switch (event.code) {
           case 'START':
+            this._error = null
             break
           case 'BUNDLE_START':
             process.stdout.write(`Building "${event.input}"`)
@@ -50,6 +53,7 @@ module.exports = class Dev extends Liquid {
             process.stdout.write('\n')
             break
           case 'ERROR':
+            this._error = event.error
             process.stderr.write(`\n${event.error.message}\n`)
             break
         }

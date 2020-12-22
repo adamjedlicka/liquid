@@ -1,23 +1,16 @@
-import { createMemo } from 'solid-js'
-import { useRepository } from './index'
+import { createRepository } from './Repository'
 import { query } from '../GraphQL'
 import productQuery from '../gql/queries/product.gql'
+import { toProduct } from '../mappers/ProductMapper'
 
-const getProductByUrlKey = async (urlKey) => {
-  const { products } = await query(productQuery, { urlKey: urlKey.replace(/^\//, '') })
+export const fetchProductByUrlKey = (name, urlKeyFactory) =>
+  createRepository({
+    name,
+    args: [urlKeyFactory],
+    fetcher: async (urlKey) => {
+      const { products } = await query(productQuery, { urlKey: urlKey.replace(/^\//, '') })
 
-  const product = products.items[0]
-
-  return product
-}
-
-export const useProductByUrlKey = (name, urlKeyFactory) => {
-  const product = useRepository(name, () => getProductByUrlKey(urlKeyFactory()), [urlKeyFactory])
-
-  return {
-    name: createMemo(() => product()?.name ?? ''),
-    thumbnail: createMemo(() => product()?.thumbnail?.url ?? ''),
-    categories: createMemo(() => product()?.categories ?? []),
-    description: createMemo(() => product()?.description?.html ?? ''),
-  }
-}
+      return products.items[0]
+    },
+    mapper: toProduct,
+  })

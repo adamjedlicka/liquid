@@ -34,7 +34,19 @@ export default (props) => {
   const src = createMemo(() => {
     if (!visible()) return placeholder
 
-    return `/image?path=${props.src}&w=${props.w || 0}&h=${props.h || 0}&fit=${props.fit || 'cover'}`
+    const args = {
+      path: props.src,
+      w: props.w,
+      h: props.h,
+      fit: props.fit,
+    }
+
+    const string = Object.entries(args)
+      .filter(([, value]) => !!value)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&')
+
+    return `/image?${string}`
   })
 
   return <img ref={img} alt={props.alt} class={props.class} src={src()} />

@@ -1,10 +1,9 @@
 import { For } from 'solid-js'
-import { useRepository } from '../repositories'
-import { getCategoriesByParentId } from '../repositories/CategoryRepository'
+import { fetchCategoriesByParentId } from '../repositories/CategoryRepository'
 import Link from './Link'
 
 export default () => {
-  const categories = useRepository('headerCategories', () => getCategoriesByParentId(2))
+  const categories = fetchCategoriesByParentId('headerCategories', () => 2)
 
   return (
     <header class="text-gray-700 body-font">
@@ -27,9 +26,9 @@ export default () => {
           </Link>
         </span>
         <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-          <For each={categories()}>
+          <For each={categories.list}>
             {(category) => (
-              <Link to={'/' + category.url_path} class="mr-5 cursor-pointer hover:text-gray-900">
+              <Link to={category.urlPath} class="mr-5 cursor-pointer hover:text-gray-900">
                 {category.name}
               </Link>
             )}

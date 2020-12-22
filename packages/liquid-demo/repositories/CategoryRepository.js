@@ -1,28 +1,40 @@
-import { createMemo } from 'solid-js'
-import { useRepository } from './index'
 import { query } from '../GraphQL'
 import categoryListQuery from '../gql/queries/categoryList.gql'
 import categoryDetailQuery from '../gql/queries/categoryDetail.gql'
+import { createRepository } from './Repository'
+import { toCategory } from '../mappers/CategoryMapper'
+import { toProduct } from '../mappers/ProductMapper'
 
-export const getCategoriesByParentId = async (parentId) => {
-  const { categoryList } = await query(categoryListQuery, { ids: parentId })
+export const fetchCategoryById = (name, idFactory) =>
+  createRepository({
+    name,
+    args: [idFactory],
+    fetcher: async (id) => {
+      const { categoryList, products } = await query(categoryDetailQuery, { id })
 
-  return categoryList[0].children
-}
+      return {
+        category: categoryList[0],
+        products: products.items,
+      }
+    },
+    mapper: (data) => ({
+      category: toCategory(data.category ?? {}),
+      products: (data.products ?? []).map(toProduct),
+    }),
+  })
 
-const getCategoryDetailById = async (categoryId) => {
-  const { categoryList, products } = await query(categoryDetailQuery, { id: categoryId })
+export const fetchCategoriesByParentId = (name, parentIdFactory) =>
+  createRepository({
+    name,
+    args: [parentIdFactory],
+    fetcher: async (parentId) => {
+      const { categoryList } = await query(categoryListQuery, { ids: parentId })
 
-  return {
-    category: categoryList[0],
-    products: products.items,
-  }
-}
-
-export const useCategoryDetailById = (name, categoryIdFactory) => {
-  const category = useRepository(name, () => getCategoryDetailById(categoryIdFactory()), [categoryIdFactory])
-
-  return {
-    products: createMemo(() => category()?.products ?? []),
-  }
-}
+      return {
+        list: categoryList[0].children,
+      }
+    },
+    mapper: (data) => ({
+      list: (data.list ?? []).map(toCategory),
+    }),
+  })
