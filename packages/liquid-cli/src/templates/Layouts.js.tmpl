@@ -1,29 +1,32 @@
-import { createMemo, lazy, Suspense } from 'solid-js'
-import { Dynamic } from 'solid-js/web'
+import { createMemo, lazy, Suspense, Switch, Match } from 'solid-js'
 import { Provider, useLayout } from 'liquid-js/core/Layouts'
 
-const layouts = {
-  <%_ for (const layout of layouts) { _%>
-  <%- layout.ident -%>: lazy(() => import('<%- layout.component -%>')),
-  <%_ } _%>
-}
-
-const Layout = (props) => {
-  const { layout } = useLayout()
-
-  const children = createMemo(() => props.children)
-
-  const component = createMemo(() => layouts[layout()])
-
-  return <Dynamic component={component()}>{children()}</Dynamic>
-}
+<%_ for (const layout of layouts) { _%>
+const _<%- layout.ident -%> = lazy(() => import('<%- layout.component -%>'))
+<%_ } _%>
 
 export default (props) => {
   return (
     <Provider>
       <Suspense>
-        <Layout>{props.children}</Layout>
+        <Layouts>{props.children}</Layouts>
       </Suspense>
     </Provider>
+  )
+}
+
+const Layouts = (props) => {
+  const { layout } = useLayout()
+
+  const children = createMemo(() => props.children)
+
+  return (
+    <Switch>
+      <%_ for (const layout of layouts) { _%>
+      <Match when={'<%- layout.ident -%>' === layout()}>
+        <_<%- layout.ident -%>>{children}</_<%- layout.ident -%>>
+      </Match>
+      <%_ } _%>
+    </Switch>
   )
 }

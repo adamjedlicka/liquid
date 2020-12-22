@@ -44,17 +44,17 @@ module.exports = class Dev extends Liquid {
             this._error = null
             break
           case 'BUNDLE_START':
-            process.stdout.write(`Building "${event.input}"`)
+            console.log(`Building "${event.input}"`)
             break
           case 'BUNDLE_END':
-            process.stdout.write(`\tdone - ${event.duration}ms\n`)
+            console.log(`done - ${event.duration}ms`)
             break
           case 'END':
-            process.stdout.write('\n')
+            console.log('')
             break
           case 'ERROR':
             this._error = event.error
-            process.stderr.write(`\n${event.error.message}\n`)
+            console.error(event.error.message)
             break
         }
       })
