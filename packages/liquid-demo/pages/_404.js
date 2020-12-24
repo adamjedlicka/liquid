@@ -6,6 +6,8 @@ import { dynamicPages } from 'build/DynamicPages'
 import { fetchResolvedUrl } from '../repositories/Repository'
 
 export default () => {
+  console.log('404')
+
   const { location } = useRouter()
 
   const urlResolver = fetchResolvedUrl(location)
