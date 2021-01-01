@@ -18,13 +18,11 @@ export default (props) => {
 const Layouts = (props) => {
   const { layout } = useLayout()
 
-  const children = createMemo(() => props.children)
-
   return (
     <Switch>
       <%_ for (const layout of layouts) { _%>
       <Match when={'<%- layout.ident -%>' === layout()}>
-        <_<%- layout.ident -%>>{children}</_<%- layout.ident -%>>
+        <_<%- layout.ident -%>>{props.children}</_<%- layout.ident -%>>
       </Match>
       <%_ } _%>
     </Switch>

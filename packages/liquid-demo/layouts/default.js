@@ -3,8 +3,6 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 export default (props) => {
-  console.log('default')
-
   return (
     <CartContextProvider>
       <div class="flex flex-col min-h-screen">

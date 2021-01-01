@@ -1,12 +1,11 @@
+import { createSignal } from 'solid-js'
 import { useCart } from '../contexts/CartContext'
 
 export default (props) => {
-  console.log('AddToCart')
-
   const { addItem } = useCart()
 
-  const onClick = () => {
-    addItem(props.product)
+  const onClick = async () => {
+    await addItem(props.product)
   }
 
   return (

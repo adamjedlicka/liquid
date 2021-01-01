@@ -16,8 +16,8 @@
     "packages/*"
   ],
   "dependencies": {
-    "solid-js": "*",
-    "liquid-js": "*"
+    "liquid-js": "*",
+    "solid-js": "*"
   },
   "devDependencies": {
     "eslint": "^7.14.0",
