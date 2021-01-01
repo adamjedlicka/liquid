@@ -1,7 +1,8 @@
 import { For, Show } from 'solid-js'
 import { Link } from 'liquid-js'
-import LazyImage from '../components/LazyImage'
 import { fetchProductByUrlKey } from '../repositories/ProductRepository'
+import LazyImage from '../components/LazyImage'
+import AddToCart from '../components/AddToCart'
 
 export default (props) => {
   const product = fetchProductByUrlKey('productDetail', () => props.url)
@@ -33,9 +34,7 @@ export default (props) => {
             <div class="leading-relaxed" innerHTML={product.description} />
             <div class="flex">
               <span class="title-font font-medium text-2xl text-gray-900">$58.00</span>
-              <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Button
-              </button>
+              <AddToCart product={product} />
             </div>
           </div>
         </div>
