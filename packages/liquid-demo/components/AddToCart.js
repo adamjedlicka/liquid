@@ -1,4 +1,3 @@
-import { createSignal } from 'solid-js'
 import { useCart } from '../contexts/CartContext'
 
 export default (props) => {

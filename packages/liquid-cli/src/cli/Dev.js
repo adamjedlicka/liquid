@@ -1,3 +1,5 @@
+require('source-map-support').install()
+
 const express = require('express')
 const { watch } = require('rollup')
 const Youch = require('youch')
