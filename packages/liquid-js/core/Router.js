@@ -1,6 +1,7 @@
 import { createContext, createSignal, createState, useContext } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import { queryStringToObject } from '../utils/UrlUtils'
+import { useServerContext } from './ServerContext'
 
 const RouterContext = createContext()
 
@@ -9,7 +10,9 @@ export const useRouter = () => {
 }
 
 export const Router = (props) => {
-  const url = (props.url || window.location.pathname + (window.location.search || '') || '/').split('?')
+  const ctx = useServerContext()
+
+  const url = (ctx.url || window.location.pathname + (window.location.search || '') || '/').split('?')
 
   const [path, setPath] = createSignal(url[0])
   const [query, setQuery] = createState(queryStringToObject(url[1]))

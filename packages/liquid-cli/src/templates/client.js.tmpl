@@ -3,4 +3,6 @@ import App from './App.js'
 
 const onError = (err) => console.error(err)
 
-hydrate(() => <App onError={onError} />, document.getElementById('app'))
+const ctx = {}
+
+hydrate(() => <App onError={onError} ctx={ctx} />, document.getElementById('app'))
