@@ -6,13 +6,13 @@ const <%- page.name -%> = lazy(() => import('<%- page.component -%>'))
 <%_ } _%>
 
 export default () => {
-  const { location } = useRouter()
+  const { path } = useRouter()
 
   return (
     <Suspense>
       <Switch>
         <%_ for (const page of pages) { _%>
-        <Match when={<%- page.path -%>.test(location())}>
+        <Match when={<%- page.path -%>.test(path())}>
           <<%- page.name -%> />
         </Match>
         <%_ } _%>

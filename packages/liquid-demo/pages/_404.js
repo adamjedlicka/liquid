@@ -1,14 +1,18 @@
 import { useRouter, Link } from 'liquid-js'
-import { createMemo } from 'solid-js'
+import { createEffect, createMemo } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
 import { dynamicPages } from 'build/DynamicPages'
 import { fetchResolvedUrl } from '../repositories/Repository'
 
 export default () => {
-  const { location } = useRouter()
+  const { path, query } = useRouter()
 
-  const urlResolver = fetchResolvedUrl(location)
+  createEffect(() => {
+    console.log(query.page)
+  })
+
+  const urlResolver = fetchResolvedUrl(path)
 
   const component = createMemo(() => dynamicPages[urlResolver.type] ?? NotFound)
 

@@ -5,21 +5,23 @@ import { createRepository } from './Repository'
 import { toCategory } from '../mappers/CategoryMapper'
 import { toProduct } from '../mappers/ProductMapper'
 
-export const fetchCategoryById = (name, idFactory) =>
+export const fetchCategoryById = (name, idFactory, { pageFactory } = {}) =>
   createRepository({
     name,
-    args: [idFactory],
-    fetcher: async (id) => {
-      const { categoryList, products } = await query(categoryDetailQuery, { id })
+    args: [idFactory, pageFactory],
+    fetcher: async (id, page = 1) => {
+      const { categoryList, products } = await query(categoryDetailQuery, { id, page })
 
       return {
         category: categoryList[0],
         products: products.items,
+        productsTotal: products.total_count,
       }
     },
     mapper: (data) => ({
       category: toCategory(data.category ?? {}),
       products: (data.products ?? []).map(toProduct),
+      productsTotal: Number(data.productsTotal) || 0,
     }),
   })
 

@@ -7,7 +7,7 @@ export const createRepository = ({ name, args = [], fetcher, mapper = (data) => 
   const [state, setState] = createState(undefined)
 
   createComputed(() => {
-    const _args = args.map((arg) => arg())
+    const _args = args.map((arg) => arg && arg())
     loadResource(() => fetcher(..._args))
   })
 

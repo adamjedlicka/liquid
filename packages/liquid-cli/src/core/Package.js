@@ -9,8 +9,6 @@ module.exports = class Package {
    * @param {Liquid} liquid
    */
   constructor(liquid, path, meta) {
-    console.log('Initializing package "%s".', meta.name)
-
     this._liquid = liquid
     this._path = path
     this._meta = meta

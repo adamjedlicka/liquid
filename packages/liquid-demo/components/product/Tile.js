@@ -17,7 +17,7 @@ export default (props) => {
       <div class="mt-4">
         <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">
           {props.product.categories.map((category) => (
-            <Link to={`/${category.urlPath}`} class="mr-1">
+            <Link to={category.urlPath} class="mr-1">
               {category.name}
             </Link>
           ))}
