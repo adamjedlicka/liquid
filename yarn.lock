@@ -1285,9 +1285,9 @@ ajv@^6.10.0, ajv@^6.12.3, ajv@^6.12.4:
     uri-js "^4.2.2"
 
 ajv@^7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-7.0.2.tgz#04ccc89a93449c64382fe0846d45a7135d986dbc"
-  integrity sha512-qIaxO9RXjaXyO21tJr0EvwPcZa49m64GcXCU8ZrLjCAlFyMuOcPpI560So4A11M1WsKslJYIXn6jSyG5P0xIeg==
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-7.0.3.tgz#13ae747eff125cafb230ac504b2406cf371eece2"
+  integrity sha512-R50QRlXSxqXcQP5SvKUrw8VZeypvo12i2IX0EeR5PiZ7bEKeHWgzgo264LDadUsCU42lTJVhFikTqJwNeH34gQ==
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -1508,7 +1508,7 @@ babel-plugin-jest-hoist@^26.6.2:
     "@types/babel__core" "^7.0.0"
     "@types/babel__traverse" "^7.0.6"
 
-babel-plugin-jsx-dom-expressions@~0.24.3:
+babel-plugin-jsx-dom-expressions@~0.24.6:
   version "0.24.6"
   resolved "https://registry.yarnpkg.com/babel-plugin-jsx-dom-expressions/-/babel-plugin-jsx-dom-expressions-0.24.6.tgz#8f55b7ea6d9b5e831bdee36e986840272c43aa98"
   integrity sha512-TCrGygRJeEluV1/hGT/GrJvJZ7651aIqtuIHOmuzbfNbrnR7Od7y+NWq+mq/XI7PEotcBGRaa0IVhUjWnVLxjw==
@@ -1544,11 +1544,11 @@ babel-preset-jest@^26.6.2:
     babel-preset-current-node-syntax "^1.0.0"
 
 babel-preset-solid@^0.23:
-  version "0.23.5"
-  resolved "https://registry.yarnpkg.com/babel-preset-solid/-/babel-preset-solid-0.23.5.tgz#dba1f900172593bf8141508b9bc4d39128a1ea0b"
-  integrity sha512-tnB1JwwR5uetwJYoWyLtNDi3NBXdZNj2REw++KX/jUeyPXzqgOjmOWwix2f85mECGdetCwRYuAtxqL2ZtoSMcQ==
+  version "0.23.7"
+  resolved "https://registry.yarnpkg.com/babel-preset-solid/-/babel-preset-solid-0.23.7.tgz#cb24702927da87f45bb3dd2d936c4cbd0f379ac4"
+  integrity sha512-pR253FbY1Kpe6c7OoTJE6IRkM+2Ey75dj83r/tY4RxyJBF+cPvHPBoRkTpXclyX86rWV7qPHAVQ09qC+Va04OA==
   dependencies:
-    babel-plugin-jsx-dom-expressions "~0.24.3"
+    babel-plugin-jsx-dom-expressions "~0.24.6"
 
 balanced-match@^1.0.0:
   version "1.0.0"
@@ -1651,7 +1651,7 @@ browser-process-hrtime@^1.0.0:
   resolved "https://registry.yarnpkg.com/browser-process-hrtime/-/browser-process-hrtime-1.0.0.tgz#3c9b4b7d782c8121e56f10106d84c0d0ffc94626"
   integrity sha512-9o5UecI3GhkpM6DrXr69PblIuWxPKk9Y0jHBRhdocZ2y7YECBFCsHm79Pr3OyR2AvjhDkabFJaDJMYRazHgsow==
 
-browserslist@^4.0.0, browserslist@^4.12.0, browserslist@^4.14.5, browserslist@^4.15.0:
+browserslist@^4.0.0, browserslist@^4.12.0, browserslist@^4.14.5, browserslist@^4.16.0:
   version "4.16.0"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.16.0.tgz#410277627500be3cb28a1bfe037586fbedf9488b"
   integrity sha512-/j6k8R0p3nxOC6kx5JGAxsnhc9ixaWJfYc+TNTzxg6+ARaESAvQGV7h0uNOB4t+pLQJZWzcrMxXOxjgsCj3dqQ==
@@ -2027,11 +2027,11 @@ copy-descriptor@^0.1.0:
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
 core-js-compat@^3.8.0:
-  version "3.8.1"
-  resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.8.1.tgz#8d1ddd341d660ba6194cbe0ce60f4c794c87a36e"
-  integrity sha512-a16TLmy9NVD1rkjUGbwuyWkiDoN0FDpAwrfLONvHFQx0D9k7J9y0srwMT8QP/Z6HE3MIFaVynEeYwZwPX1o5RQ==
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.8.2.tgz#3717f51f6c3d2ebba8cbf27619b57160029d1d4c"
+  integrity sha512-LO8uL9lOIyRRrQmZxHZFl1RV+ZbcsAkFWTktn5SmH40WgLtSNYN4m4W2v9ONT147PxBY/XrRhrWq8TlvObyUjQ==
   dependencies:
-    browserslist "^4.15.0"
+    browserslist "^4.16.0"
     semver "7.0.0"
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
@@ -6133,9 +6133,9 @@ snapdragon@^0.8.1:
     use "^3.1.0"
 
 solid-js@*, solid-js@^0.23:
-  version "0.23.6"
-  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-0.23.6.tgz#69f592335c803d68e8b10fb740e010c2f51764c3"
-  integrity sha512-ag9LBr3njVy07ZvGFcrdCoRBrDh0zUanqYzV6iayx74Z7JqFUYA6lBBk1u2ZbuUjb9w9vJLZ8XoHZCrcalpS7w==
+  version "0.23.7"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-0.23.7.tgz#57b34f2d54240e9fe766590b5a22179f5f9c382b"
+  integrity sha512-WxYs3VvETS054Qb3em2k5SIQAcI8XvjkvkG/d8F0oexwn9JN/BdG8HpqL2Bp7ciXm8Yr5m4y6xIwttGSr3BfMg==
 
 source-map-resolve@^0.5.0:
   version "0.5.3"
