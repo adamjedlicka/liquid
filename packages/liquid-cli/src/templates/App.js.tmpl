@@ -1,5 +1,5 @@
 import { onError } from 'solid-js'
-import { Router, ServerContextProvider } from 'liquid-js'
+import { HeadProvider, Router, ServerContextProvider } from 'liquid-js'
 import Layouts from './Layouts'
 import Pages from './Pages'
 
@@ -12,11 +12,13 @@ export default (props) => {
 
   return (
     <ServerContextProvider ctx={props.ctx}>
-      <Router>
-        <Layouts>
-          <Pages />
-        </Layouts>
-      </Router>
+      <HeadProvider>
+        <Router>
+          <Layouts>
+            <Pages />
+          </Layouts>
+        </Router>
+      </HeadProvider>
     </ServerContextProvider>
   )
 }

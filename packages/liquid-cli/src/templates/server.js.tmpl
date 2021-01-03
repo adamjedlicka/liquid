@@ -15,13 +15,11 @@ export const entry = async (req) => {
 
   const string = await renderToString(awaitSuspense(() => <App onError={onError} ctx={ctx} />))
   const script = generateHydrationScript()
-  const head = renderToString(ctx.head)
 
   if (error) throw error
 
   return {
     string,
     script,
-    head,
   }
 }
