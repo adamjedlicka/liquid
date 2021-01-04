@@ -2,6 +2,7 @@ global.fetch = require('node-fetch')
 
 import { awaitSuspense } from 'solid-js'
 import { renderToString, generateHydrationScript } from 'solid-js/web'
+import { renderTags } from 'solid-meta'
 import App from './App.js'
 
 export const entry = async (req) => {
@@ -11,15 +12,18 @@ export const entry = async (req) => {
 
   const ctx = {
     url: req.url,
+    head: [],
   }
 
   const string = await renderToString(awaitSuspense(() => <App onError={onError} ctx={ctx} />))
+  const head = renderTags(ctx.head)
   const script = generateHydrationScript()
 
   if (error) throw error
 
   return {
     string,
+    head,
     script,
   }
 }

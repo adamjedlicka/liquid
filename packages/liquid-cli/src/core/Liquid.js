@@ -97,7 +97,7 @@ module.exports = class Liquid {
   }
 
   async _handleRequest(req, res, next, { entry }) {
-    const { string, script } = await entry(req)
+    const { string, head, script } = await entry(req)
 
     const html = `
   <!DOCTYPE html>
@@ -105,6 +105,7 @@ module.exports = class Liquid {
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      ${head}
       <link rel="stylesheet" href="/client.css">
       <script>${script}</script>
       <script type="module" src="/client.js" async></script>

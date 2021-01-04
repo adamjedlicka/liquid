@@ -10,6 +10,7 @@
     "liquid": "./liquid.js"
   },
   "dependencies": {
-    "solid-js": "^0.23"
+    "solid-js": "^0.23",
+    "solid-meta": "^0.23"
   }
 }
