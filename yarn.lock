@@ -6137,7 +6137,7 @@ solid-js@*, solid-js@^0.23:
   resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-0.23.8.tgz#d2783b8049b2c671346a4b54c60ef2da8f31ce45"
   integrity sha512-MeJ/7dYFWR5egqtmTwuNlxV9K5MlSF4Ji6Gec/r/f5Cy64npWdXC6pl7cnpUlEpnhl34VJbBkkQWXVDQdqmePg==
 
-solid-meta@^0.23:
+solid-meta@*, solid-meta@^0.23:
   version "0.23.8"
   resolved "https://registry.yarnpkg.com/solid-meta/-/solid-meta-0.23.8.tgz#fffb85d135615506688a2a5d01932e396fd2abca"
   integrity sha512-vVS7+q9qHwU3RNAA+oZ3WPu33JWeoef2oi06fUsgUOejv8Y+oT4fOc3Q6C4bE99TmDBbuQ34e4vZhGUX+uSJUA==

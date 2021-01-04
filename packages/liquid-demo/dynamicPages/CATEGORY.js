@@ -1,5 +1,5 @@
 import { createMemo, For } from 'solid-js'
-import { Title } from 'solid-meta'
+import { Title, Meta } from 'solid-meta'
 import { useRouter } from 'liquid-js'
 import { fetchCategoryById } from '../repositories/CategoryRepository'
 import Tile from '../components/product/Tile'
@@ -17,6 +17,7 @@ export default (props) => {
   return (
     <>
       <Title>{category.category.name}</Title>
+      <Meta name="description" content="Category description" />
 
       <section class="text-gray-700 body-font">
         <div class="container px-5 py-24 mx-auto">
