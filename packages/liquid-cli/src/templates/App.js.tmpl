@@ -1,5 +1,6 @@
 import { onError } from 'solid-js'
-import { HeadProvider, Router, ServerContextProvider } from 'liquid-js'
+import { MetaProvider } from 'solid-meta'
+import { Router, ServerContextProvider } from 'liquid-js'
 import Layouts from './Layouts'
 import Pages from './Pages'
 
@@ -12,13 +13,13 @@ export default (props) => {
 
   return (
     <ServerContextProvider ctx={props.ctx}>
-      <HeadProvider>
+      <MetaProvider tags={props.ctx.head}>
         <Router>
           <Layouts>
             <Pages />
           </Layouts>
         </Router>
-      </HeadProvider>
+      </MetaProvider>
     </ServerContextProvider>
   )
 }

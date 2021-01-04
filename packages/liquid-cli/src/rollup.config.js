@@ -40,6 +40,9 @@ const server = {
     sourcemap: !production,
   },
   external: (path) => {
+    // TODO: solid-meta has to be transpiled to work
+    if (/solid-meta/.test(path)) return false
+
     if (/\.css$/.test(path)) return false
 
     try {
