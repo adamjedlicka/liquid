@@ -39,20 +39,8 @@ const server = {
     format: 'cjs',
     sourcemap: !production,
   },
-  external: (path) => {
-    // TODO: solid-meta has to be transpiled to work
-    if (/solid-meta/.test(path)) return false
-
-    if (/\.css$/.test(path)) return false
-
-    try {
-      return require.resolve(path).includes('node_modules')
-    } catch {
-      return false
-    }
-  },
   plugins: [
-    nodeResolve({ preferBuiltins: true }),
+    nodeResolve({ exportConditions: ['node'] }),
     babel({
       babelHelpers: 'bundled',
       presets: [['solid', { generate: 'ssr', hydratable: true, async: true }]],
