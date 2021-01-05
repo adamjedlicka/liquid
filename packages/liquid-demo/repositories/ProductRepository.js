@@ -1,16 +1,15 @@
-import { createRepository } from './Repository'
-import { query } from '../GraphQL'
+import { useQuery } from '../GraphQL'
 import productQuery from '../gql/queries/product.gql'
 import { toProduct } from '../mappers/ProductMapper'
+import { createRepository } from './Repository'
 
-export const fetchProductByUrlKey = (name, urlKeyFactory) =>
-  createRepository({
-    name,
-    args: [urlKeyFactory],
-    fetcher: async (urlKey) => {
-      const { products } = await query(productQuery, { urlKey: urlKey.replace(/^\//, '') })
-
-      return products.items[0]
-    },
-    mapper: toProduct,
-  })
+export const fetchProductByUrlKey = createRepository({
+  fetcher: (name, urlKeyFactory) =>
+    useQuery(name, () => [
+      productQuery,
+      {
+        urlKey: urlKeyFactory().slice(1),
+      },
+    ]),
+  mapper: (data) => toProduct(data.products?.items?.[0]),
+})

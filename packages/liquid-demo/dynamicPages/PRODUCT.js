@@ -1,12 +1,14 @@
 import { For, Show } from 'solid-js'
 import { Title, Meta } from 'solid-meta'
-import { Link } from 'liquid-js'
+import { Link, useRouter } from 'liquid-js'
 import { fetchProductByUrlKey } from '../repositories/ProductRepository'
 import LazyImage from '../components/LazyImage'
 import AddToCart from '../components/AddToCart'
 
-export default (props) => {
-  const product = fetchProductByUrlKey('productDetail', () => props.url)
+export default () => {
+  const { path } = useRouter()
+
+  const product = fetchProductByUrlKey('productDetail', path)
 
   return (
     <>

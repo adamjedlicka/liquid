@@ -1,6 +1,6 @@
 import { toCategory } from './CategoryMapper'
 
-export const toProduct = (data) => ({
+export const toProduct = (data = {}) => ({
   sku: data.sku ?? '',
   name: data.name ?? '',
   urlPath: '/' + (data.url_key ?? ''),

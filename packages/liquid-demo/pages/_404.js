@@ -3,12 +3,12 @@ import { createMemo } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
 import { dynamicPages } from 'build/DynamicPages'
-import { fetchResolvedUrl } from '../repositories/Repository'
+import { fetchUrlResolver } from '../repositories/Repository'
 
 export default () => {
   const { path } = useRouter()
 
-  const urlResolver = fetchResolvedUrl(path)
+  const urlResolver = fetchUrlResolver(path)
 
   const component = createMemo(() => dynamicPages[urlResolver.type] ?? NotFound)
 

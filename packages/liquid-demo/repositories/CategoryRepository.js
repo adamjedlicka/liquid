@@ -1,42 +1,34 @@
-import { query } from '../GraphQL'
+import { useQuery } from '../GraphQL'
 import categoryListQuery from '../gql/queries/categoryList.gql'
 import categoryDetailQuery from '../gql/queries/categoryDetail.gql'
-import { createRepository } from './Repository'
 import { toCategory } from '../mappers/CategoryMapper'
 import { toProduct } from '../mappers/ProductMapper'
+import { createRepository } from './Repository'
 
-export const fetchCategoryById = (name, idFactory, { pageFactory } = {}) =>
-  createRepository({
-    name,
-    args: [idFactory, pageFactory],
-    fetcher: async (id, page = 1) => {
-      const { categoryList, products } = await query(categoryDetailQuery, { id, page })
+export const fetchCategoryById = createRepository({
+  fetcher: (name, idFactory) =>
+    useQuery(name, () => [
+      categoryDetailQuery,
+      {
+        id: idFactory(),
+      },
+    ]),
+  mapper: (data) => ({
+    ...toCategory(data.categoryList?.[0] ?? {}),
+    products: (data.products?.items ?? []).map(toProduct),
+    productsTotal: Number(data.total_count) || 0,
+  }),
+})
 
-      return {
-        category: categoryList[0],
-        products: products.items,
-        productsTotal: products.total_count,
-      }
-    },
-    mapper: (data) => ({
-      category: toCategory(data.category ?? {}),
-      products: (data.products ?? []).map(toProduct),
-      productsTotal: Number(data.productsTotal) || 0,
-    }),
-  })
-
-export const fetchCategoriesByParentId = (name, parentIdFactory) =>
-  createRepository({
-    name,
-    args: [parentIdFactory],
-    fetcher: async (parentId) => {
-      const { categoryList } = await query(categoryListQuery, { ids: parentId })
-
-      return {
-        list: categoryList[0].children,
-      }
-    },
-    mapper: (data) => ({
-      list: (data.list ?? []).map(toCategory),
-    }),
-  })
+export const fetchCategoriesByParentId = createRepository({
+  fetcher: (name, parentIdFactory) =>
+    useQuery(name, () => [
+      categoryListQuery,
+      {
+        ids: parentIdFactory(),
+      },
+    ]),
+  mapper: (data) => ({
+    list: (data.categoryList?.[0]?.children ?? []).map(toCategory),
+  }),
+})

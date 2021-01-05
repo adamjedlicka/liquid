@@ -1,10 +1,10 @@
-query($id: String!, $page: Int!) {
+query($id: String!) {
   categoryList(filters: { ids: { eq: $id } }) {
     id
     name
     url_path
   }
-  products(filter: { category_id: { eq: $id } }, currentPage: $page) {
+  products(filter: { category_id: { eq: $id } }) {
     total_count
     items {
       id

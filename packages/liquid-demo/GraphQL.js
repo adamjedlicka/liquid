@@ -1,11 +1,10 @@
 import { isServer } from 'solid-js/web'
-import { queryObjectToString } from 'liquid-js'
+import { queryObjectToString, createFetcher } from 'liquid-js'
 
-export const query = async (query, variables) => {
+export const useQuery = createFetcher(async (query, variables) => {
   const url = isServer ? 'https://venia.magento.com/graphql' : '/graphql'
 
   const body = queryObjectToString({ query: query.replace(/\s\s+/g, ' ').replace(/\n/g, ' '), variables })
-
   const response = await fetch(`${url}?${body}`, {
     method: 'GET',
     headers: {
@@ -20,9 +19,9 @@ export const query = async (query, variables) => {
   }
 
   return json.data
-}
+})
 
-export const mutate = async (mutation, variables) => {
+export const useMutation = createFetcher(async (mutation, variables) => {
   const url = isServer ? 'https://venia.magento.com/graphql' : '/graphql'
 
   const response = await fetch(url, {
@@ -40,4 +39,4 @@ export const mutate = async (mutation, variables) => {
   }
 
   return json.data
-}
+})

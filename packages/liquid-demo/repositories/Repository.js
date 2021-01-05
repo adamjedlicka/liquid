@@ -1,33 +1,27 @@
-import { createComputed, createResource, createState } from 'solid-js'
-import { query } from '../GraphQL'
+import { createComputed, createState } from 'solid-js'
+import { useQuery } from '../GraphQL'
 import urlResolverQuery from '../gql/queries/urlResolver.gql'
 
-export const createRepository = ({ name, args = [], fetcher, mapper = (data) => data }) => {
-  const [resource, loadResource] = createResource(undefined, { name })
-  const [state, setState] = createState(undefined)
+export const createRepository = ({ fetcher, mapper }) => (...args) => {
+  const [state, setState] = createState({})
 
-  createComputed(() => {
-    const _args = args.map((arg) => arg && arg())
-    loadResource(() => fetcher(..._args))
-  })
+  const { response } = fetcher(...args)
 
-  createComputed(() => {
-    setState(mapper(resource() ?? {}))
-  })
+  createComputed(() => setState(mapper(response)))
 
   return state
 }
 
-export const fetchResolvedUrl = (urlFactory) =>
-  createRepository({
-    name: 'urlResolver',
-    args: [urlFactory],
-    fetcher: async (url) => {
-      const { urlResolver } = await query(urlResolverQuery, { url: `${url}.html` })
-
-      return {
-        ...urlResolver,
-        url,
-      }
-    },
-  })
+export const fetchUrlResolver = createRepository({
+  fetcher: (urlFactory) =>
+    useQuery('urlResolver', () => [
+      urlResolverQuery,
+      {
+        url: `${urlFactory()}.html`,
+      },
+    ]),
+  mapper: (data) => ({
+    type: data.urlResolver?.type,
+    id: data.urlResolver?.id,
+  }),
+})
