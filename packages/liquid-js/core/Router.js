@@ -1,5 +1,7 @@
-import { createContext, createSignal, createState, useContext } from 'solid-js'
+import { createContext, createEffect, createSignal, createState, useContext, useTransition } from 'solid-js'
 import { isServer } from 'solid-js/web'
+import Nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
 import { queryStringToObject } from '../utils/UrlUtils'
 import { useServerContext } from './ServerContext'
 
@@ -10,18 +12,34 @@ export const useRouter = () => {
 }
 
 export const Router = (props) => {
+  const [pending, start] = useTransition()
   const ctx = useServerContext()
 
   const url = (ctx.url || window.location.pathname + (window.location.search || '') || '/').split('?')
 
-  const [path, setPath] = createSignal(url[0])
-  const [query, setQuery] = createState(queryStringToObject(url[1]))
+  const [path, _setPath] = createSignal(url[0])
+  const [query, _setQuery] = createState(queryStringToObject(url[1]))
+
+  createEffect(() => {
+    if (pending()) {
+      Nprogress.start()
+    } else {
+      Nprogress.done()
+    }
+  })
+
+  const setPath = (value) => start(() => _setPath(value))
+  const setQuery = (value) => start(() => _setQuery(value))
 
   if (!isServer) {
     window.onpopstate = () => setPath(window.location.pathname)
   }
 
-  return <RouterContext.Provider value={{ path, setPath, query, setQuery }}>{props.children}</RouterContext.Provider>
+  return (
+    <RouterContext.Provider value={{ path, setPath, query, setQuery, pending }}>
+      {props.children}
+    </RouterContext.Provider>
+  )
 }
 
 export const Link = (props) => {
