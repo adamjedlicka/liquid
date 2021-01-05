@@ -16,7 +16,7 @@ module.exports = class Build extends Liquid {
       if (this._args.analyze && config.input.includes('client')) {
         config.plugins.push(
           visualizer({
-            filename: 'dist/client/stats.html',
+            filename: path.resolve(this._getDistDirectoryPath(), 'client', 'stats.html'),
           })
         )
       }
