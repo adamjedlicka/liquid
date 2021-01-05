@@ -1,4 +1,6 @@
-import { createComputed, createResource, createSignal, createState } from 'solid-js'
+import { createComputed, createEffect, createResource, createSignal, createState } from 'solid-js'
+import Nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 export const createFetcher = (fn) => (name, args) => {
   const [resource, loadResource] = createResource(undefined, { name })
@@ -23,5 +25,34 @@ export const createFetcher = (fn) => (name, args) => {
     setResponse(resource())
   })
 
+  createEffect(() => {
+    if (loading()) {
+      startProgress()
+    } else {
+      stopProgress()
+    }
+  })
+
   return { response, loading }
+}
+
+let nProgress = 0
+
+const startProgress = () => {
+  nProgress++
+  if (nProgress === 1) {
+    Nprogress.start()
+  } else {
+    Nprogress.inc()
+  }
+}
+
+const stopProgress = () => {
+  nProgress--
+  if (nProgress < 0) nProgress = 0
+  if (nProgress == 0) {
+    Nprogress.done()
+  } else {
+    Nprogress.inc()
+  }
 }

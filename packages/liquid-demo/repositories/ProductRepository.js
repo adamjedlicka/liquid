@@ -8,7 +8,9 @@ export const fetchProductByUrlKey = createRepository({
     useQuery(name, () => [
       productQuery,
       {
-        urlKey: urlKeyFactory().slice(1),
+        urlKey: urlKeyFactory()
+          .replace(/\.html$/, '')
+          .slice(1),
       },
     ]),
   mapper: (data) => toProduct(data.products?.items?.[0]),

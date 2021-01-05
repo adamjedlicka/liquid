@@ -1,4 +1,5 @@
 import { createComputed, createState } from 'solid-js'
+
 import { useQuery } from '../GraphQL'
 import urlResolverQuery from '../gql/queries/urlResolver.gql'
 
@@ -23,5 +24,6 @@ export const fetchUrlResolver = createRepository({
   mapper: (data) => ({
     type: data.urlResolver?.type,
     id: data.urlResolver?.id,
+    url: data._variables?.url,
   }),
 })

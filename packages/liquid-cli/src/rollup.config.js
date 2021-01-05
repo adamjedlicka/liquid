@@ -1,6 +1,7 @@
 const path = require('path')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const { babel } = require('@rollup/plugin-babel')
+const commonjs = require('@rollup/plugin-commonjs')
 const alias = require('@rollup/plugin-alias')
 const { terser } = require('rollup-plugin-terser')
 const postcss = require('rollup-plugin-postcss')
@@ -21,6 +22,7 @@ const client = {
       babelHelpers: 'bundled',
       presets: [['solid', { generate: 'dom', hydratable: true }]],
     }),
+    commonjs(),
     postcss({
       extract: true,
       minimize: production,
@@ -45,6 +47,7 @@ const server = {
       babelHelpers: 'bundled',
       presets: [['solid', { generate: 'ssr', hydratable: true, async: true }]],
     }),
+    commonjs(),
     postcss({
       extract: false,
       inject: false,

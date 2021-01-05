@@ -11,6 +11,7 @@
     "@babel/preset-env": "^7.12",
     "@rollup/plugin-alias": "^3.1",
     "@rollup/plugin-babel": "^5.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0",
     "babel-preset-solid": "^0.23",
     "compression": "^1.7",

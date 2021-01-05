@@ -18,6 +18,8 @@ export const useQuery = createFetcher(async (query, variables) => {
     throw new Error(json.errors[0].message)
   }
 
+  json.data._variables = variables
+
   return json.data
 })
 
