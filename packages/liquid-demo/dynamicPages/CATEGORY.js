@@ -1,11 +1,21 @@
-import { createMemo, For } from 'solid-js'
+import { createEffect, createMemo, For } from 'solid-js'
 import { Title, Meta } from 'solid-meta'
-import { fetchCategoryById } from '../repositories/CategoryRepository'
+import { fetchCategoryDetail } from '../repositories/CategoryRepository'
 import Tile from '../components/product/Tile'
 import Pagination from '../components/Pagination'
+import { useRouter } from 'liquid-js'
 
 export default (props) => {
-  const category = fetchCategoryById('categoryDetail', () => props.id)
+  const { query } = useRouter()
+
+  createEffect(() => {
+    console.log(query.page)
+  })
+
+  const category = fetchCategoryDetail('categoryDetail', () => ({
+    id: props.id,
+    page: query.page,
+  }))
 
   const pages = createMemo(() => Math.ceil(category.productsTotal / 20))
 

@@ -4,6 +4,7 @@ import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { queryStringToObject } from '../utils/UrlUtils'
 import { useServerContext } from './ServerContext'
+import { clearState } from '../utils/SolidUtils'
 
 const RouterContext = createContext()
 
@@ -25,10 +26,13 @@ export const Router = (props) => {
       Nprogress.start()
     } else {
       Nprogress.done()
+
+      window.scrollTo(0, 0)
     }
   })
 
-  const setPath = (value) => start(() => _setPath(value))
+  const setPath = (value) => start(() => (_setPath(value), _setQuery(clearState(query))))
+
   const setQuery = (value) => start(() => _setQuery(value))
 
   if (!isServer) {
@@ -49,8 +53,8 @@ export const Link = (props) => {
     if (e) e.preventDefault()
 
     if (props.to.startsWith('?')) {
-      setQuery(queryStringToObject(props.to.slice(1)))
       window.history.pushState('', '', path() + props.to)
+      setQuery(queryStringToObject(props.to.slice(1)))
     } else {
       window.history.pushState('', '', props.to)
       setPath(props.to)

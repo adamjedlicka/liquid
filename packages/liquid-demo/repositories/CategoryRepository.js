@@ -5,15 +5,12 @@ import { toCategory } from '../mappers/CategoryMapper'
 import { toProduct } from '../mappers/ProductMapper'
 import { createRepository } from './Repository'
 
-export const fetchCategoryById = createRepository({
-  fetcher: (name, idFactory) =>
-    useQuery(name, categoryDetailQuery, () => ({
-      id: idFactory(),
-    })),
+export const fetchCategoryDetail = createRepository({
+  fetcher: (name, optsFactory) => useQuery(name, categoryDetailQuery, optsFactory),
   mapper: (data) => ({
     ...toCategory(data.categoryList?.[0] ?? {}),
     products: (data.products?.items ?? []).map(toProduct),
-    productsTotal: Number(data.total_count) || 0,
+    productsTotal: Number(data.products?.total_count) || 0,
   }),
 })
 

@@ -134,11 +134,15 @@ module.exports = class Liquid {
   }
 
   _getServerEntry() {
-    const resolved = require.resolve(path.resolve(this._getDistDirectoryPath(), 'server', 'server.js'))
+    try {
+      const resolved = require.resolve(path.resolve(this._getDistDirectoryPath(), 'server', 'server.js'))
 
-    delete require.cache[resolved]
+      delete require.cache[resolved]
 
-    return require(resolved)
+      return require(resolved)
+    } catch {
+      return {}
+    }
   }
 
   _getStyles() {

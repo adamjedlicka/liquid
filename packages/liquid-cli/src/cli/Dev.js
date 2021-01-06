@@ -21,6 +21,8 @@ module.exports = class Dev extends Liquid {
 
         const { entry } = await this._getServerEntry()
 
+        if (!entry) return res.send('Compiling bundle...')
+
         await this._handleRequest(req, res, next, {
           entry,
         })

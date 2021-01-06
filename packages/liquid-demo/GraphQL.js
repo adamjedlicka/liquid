@@ -15,6 +15,10 @@ export const useQuery = createFetcher(async (query, variables) => {
   const json = await response.json()
 
   if (json.errors) {
+    for (const error of json.errors) {
+      console.error(error.message)
+    }
+
     throw new Error(json.errors[0].message)
   }
 

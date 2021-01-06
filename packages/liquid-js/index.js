@@ -1,4 +1,5 @@
 export * from './utils/UrlUtils'
+export * from './utils/SolidUtils'
 
 export * from './core/Fetch'
 export * from './core/Layouts'
