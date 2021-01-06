@@ -7,12 +7,9 @@ import { createRepository } from './Repository'
 
 export const fetchCategoryById = createRepository({
   fetcher: (name, idFactory) =>
-    useQuery(name, () => [
-      categoryDetailQuery,
-      {
-        id: idFactory(),
-      },
-    ]),
+    useQuery(name, categoryDetailQuery, () => ({
+      id: idFactory(),
+    })),
   mapper: (data) => ({
     ...toCategory(data.categoryList?.[0] ?? {}),
     products: (data.products?.items ?? []).map(toProduct),
@@ -22,12 +19,9 @@ export const fetchCategoryById = createRepository({
 
 export const fetchCategoriesByParentId = createRepository({
   fetcher: (name, parentIdFactory) =>
-    useQuery(name, () => [
-      categoryListQuery,
-      {
-        ids: parentIdFactory(),
-      },
-    ]),
+    useQuery(name, categoryListQuery, () => ({
+      ids: parentIdFactory(),
+    })),
   mapper: (data) => ({
     list: (data.categoryList?.[0]?.children ?? []).map(toCategory),
   }),
