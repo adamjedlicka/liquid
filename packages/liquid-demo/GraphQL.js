@@ -41,8 +41,14 @@ export const useMutation = createFetcher(async (mutation, variables) => {
   const json = await response.json()
 
   if (json.errors) {
+    for (const error of json.errors) {
+      console.error(error.message)
+    }
+
     throw new Error(json.errors[0].message)
   }
+
+  json.data._variables = variables
 
   return json.data
 })
