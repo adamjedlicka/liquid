@@ -1,4 +1,4 @@
-import { createEffect, createMemo, For } from 'solid-js'
+import { createMemo, For } from 'solid-js'
 import { Title, Meta } from 'solid-meta'
 import { fetchCategoryDetail } from '../repositories/CategoryRepository'
 import Tile from '../components/product/Tile'
@@ -7,10 +7,6 @@ import { useRouter } from 'liquid-js'
 
 export default (props) => {
   const { query } = useRouter()
-
-  createEffect(() => {
-    console.log(query.page)
-  })
 
   const category = fetchCategoryDetail('categoryDetail', () => ({
     id: props.id,
