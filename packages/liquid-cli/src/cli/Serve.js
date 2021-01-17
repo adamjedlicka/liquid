@@ -28,7 +28,7 @@ module.exports = class Serve extends Liquid {
 
     server.listen(this._getServerPort(), this._getServerHost(), () => {
       console.log()
-      console.log('Server listening at http://%s:%d', this._getServerHost(), this._getServerPort())
+      console.log('Server listening on http://%s:%d', this._getServerHost(), this._getServerPort())
       console.log()
     })
   }
