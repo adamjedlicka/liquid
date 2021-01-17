@@ -14,12 +14,14 @@ module.exports = class Serve extends Liquid {
 
     const { entry } = await this._getServerEntry()
     const manifest = await this._getManifest()
+    const style = await this._getStyle()
 
     server.get('*', async (req, res, next) => {
       try {
         await this._handleRequest(req, res, next, {
           entry,
           manifest,
+          style,
         })
       } catch (e) {
         res.status(500).send(e.message)

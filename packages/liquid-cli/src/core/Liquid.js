@@ -106,6 +106,11 @@ module.exports = class Liquid {
     return JSON.parse(manifest)
   }
 
+  async _getStyle() {
+    const style = await this._fs.readFile(path.resolve(this._getDistDirectoryPath(), 'client', 'client.css'))
+    return `<style>${style}</style>`
+  }
+
   _applyMiddlewares(server) {
     server.use('/', express.static(path.resolve(this._getDistDirectoryPath(), 'client')))
 
@@ -114,7 +119,7 @@ module.exports = class Liquid {
     }
   }
 
-  async _handleRequest(req, res, next, { entry, manifest }) {
+  async _handleRequest(req, res, next, { entry, manifest, style }) {
     const { ctx, string, head, script } = await entry(req)
 
     let preload = '<link rel="preload" href="/client.js" as="script" crossorigin="anonymous">'
@@ -127,6 +132,10 @@ module.exports = class Liquid {
       preload += `<link rel="preload" href="/${page}" as="script" crossorigin="anonymous">`
     }
 
+    if (!style) {
+      style = '<link rel="stylesheet" href="/client.css">'
+    }
+
     const html = `
   <!DOCTYPE html>
   <html lang="en">
@@ -135,7 +144,7 @@ module.exports = class Liquid {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       ${head}
       ${preload}
-      <link rel="stylesheet" href="/client.css">
+      ${style}
       <script>${script}</script>
   </head>
   <body>
