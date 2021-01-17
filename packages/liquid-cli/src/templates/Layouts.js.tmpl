@@ -1,8 +1,20 @@
-import { createMemo, lazy, Suspense, Switch, Match } from 'solid-js'
+import { lazy, Suspense, Switch, Match } from 'solid-js'
+import { isServer } from 'solid-js/web'
 import { Provider, useLayout } from 'liquid-js/core/Layouts'
+import { useServerContext } from 'liquid-js'
 
 <%_ for (const layout of layouts) { _%>
-const _<%- layout.ident -%> = lazy(() => import('<%- layout.component -%>'))
+const _<%- layout.ident -%> = (props) => {
+  if (isServer) {
+    const ctx = useServerContext()
+
+    ctx.layout = '<%- layout.component -%>'
+  }
+
+  const Component = lazy(() => import('<%- layout.component -%>'))
+
+  return <Component {...props} />
+}
 <%_ } _%>
 
 export default (props) => {

@@ -22,6 +22,7 @@ export const entry = async (req) => {
   if (error) throw error
 
   return {
+    ctx,
     string,
     head,
     script,

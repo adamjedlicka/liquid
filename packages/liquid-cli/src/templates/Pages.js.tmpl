@@ -1,8 +1,19 @@
 import { lazy, Match, Suspense, Switch } from 'solid-js'
-import { useRouter } from 'liquid-js'
+import { isServer } from 'solid-js/web'
+import { useServerContext, useRouter } from 'liquid-js'
 
 <%_ for (const page of pages) { _%>
-const <%- page.name -%> = lazy(() => import('<%- page.component -%>'))
+const <%- page.name -%> = (props) => {
+  if (isServer) {
+    const ctx = useServerContext()
+
+    ctx.page = '<%- page.component -%>'
+  }
+
+  const Component = lazy(() => import('<%- page.component -%>'))
+
+  return <Component {...props} />
+}
 <%_ } _%>
 
 export default () => {

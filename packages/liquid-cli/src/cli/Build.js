@@ -11,9 +11,11 @@ module.exports = class Build extends Liquid {
     await this._copyTemplates()
 
     for (const config of this._getRollupConfig()) {
+      const isClient = config.input.includes('client')
+
       process.stdout.write(`\nBuilding "${config.input}"`)
 
-      if (this._args.analyze && config.input.includes('client')) {
+      if (this._args.analyze && isClient) {
         config.plugins.push(
           visualizer({
             filename: path.resolve(this._getDistDirectoryPath(), 'client', 'stats.html'),
@@ -24,6 +26,8 @@ module.exports = class Build extends Liquid {
       const bundle = await rollup(config)
 
       const { output } = await bundle.write(config.output)
+
+      if (isClient) await this._generateManifest(output)
 
       process.stdout.write('\tdone\n\n')
 
@@ -37,7 +41,7 @@ module.exports = class Build extends Liquid {
         process.stdout.write('\n')
       }
 
-      if (this._args.analyze && config.input.includes('client')) {
+      if (this._args.analyze && isClient) {
         open(path.resolve(this._getDistDirectoryPath(), 'client', 'stats.html'))
       }
     }
